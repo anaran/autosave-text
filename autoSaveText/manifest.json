@@ -1,0 +1,16 @@
+{
+    "name": "AutoSave Text",
+        "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
+        "version": "1",
+        "permissions": ["contextMenus", "storage"],
+        "content_scripts": [{
+        "matches": ["<all_urls>"],
+            "js": [
+            "autosave.js",
+            "toast.js"],
+            "css": [
+            "toast.css"]
+    }],
+    //    "options_page": "options.html",
+    "manifest_version": 2
+}
