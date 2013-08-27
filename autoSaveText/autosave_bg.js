@@ -3,29 +3,45 @@ console.log("autosave_bg.js loads into", location.href);
 
 (function() {
     try {
-            chrome.contextMenus.removeAll(function() {
-                if (chrome.extension.lastError) {
-                    toast("lastError:" + chrome.extension.lastError.message);
-                }
-            });
-        var removeAllAutsosavesId = chrome.contextMenus.create({
-            id: "removeAllAutosaves" + Date.now(),
-            type: "normal",
-            title: "remove all autosaves",
-            contexts: ["editable"]
-        }, function() {
+        // TODO Please note we first try a dummpy update of the menu be ID.
+        // IF that fails, we probably have to create it.
+        // Here is proof:
+        //autosave_bg.js is loaded at 2013-08-27T19:07:09.440Z autosave_bg.js:89
+        //lastError:Cannot find menu item with id removeAllAutosaves autosave_bg.js:11
+        //lastError:Cannot find menu item with id captureVisibleTabId autosave_bg.js:27
+        //autosave_bg.js loads into chrome-extension://ddbcobcapggbhjcihdedihlennemenmm/_generated_background_page.html autosave_bg.js:2
+        //autosave_bg.js loading takes: 61.000ms autosave_bg.js:88
+        //autosave_bg.js is loaded at 2013-08-27T19:07:46.810Z autosave_bg.js:89
+        var removeAllAutsosavesId = "removeAllAutosaves";
+        chrome.contextMenus.update(removeAllAutsosavesId, {}, function() {
             if (chrome.extension.lastError) {
                 console.log("lastError:" + chrome.extension.lastError.message);
+                chrome.contextMenus.create({
+                    id: removeAllAutsosavesId,
+                    type: "normal",
+                    title: "remove all autosaves",
+                    contexts: ["editable"]
+                }, function() {
+                    if (chrome.extension.lastError) {
+                        console.log("lastError:" + chrome.extension.lastError.message);
+                    }
+                });
             }
         });
-        var captureVisibleTabId = chrome.contextMenus.create({
-            id: "captureVisibleTab" + Date.now(),
-            type: "normal",
-            title: "capture visible tab",
-            contexts: ["editable"]
-        }, function() {
+        var captureVisibleTabId = "captureVisibleTabId";
+        chrome.contextMenus.update(captureVisibleTabId, {}, function() {
             if (chrome.extension.lastError) {
                 console.log("lastError:" + chrome.extension.lastError.message);
+                chrome.contextMenus.create({
+                    id: captureVisibleTabId,
+                    type: "normal",
+                    title: "capture visible tab",
+                    contexts: ["editable"]
+                }, function() {
+                    if (chrome.extension.lastError) {
+                        console.log("lastError:" + chrome.extension.lastError.message);
+                    }
+                });
             }
         });
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
@@ -53,25 +69,6 @@ console.log("autosave_bg.js loads into", location.href);
                     }
             }
         });
-        //        chrome.contextMenus.onClicked.addListener(function(info, tab) {
-        //            chrome.storage.sync.get(null, function(items) {
-        //                if (chrome.runtime.lastError) {
-        //                    console.log(chrome.runtime.lastError.message);
-        //                } else {
-        ////                	window.alert(JSON.stringify(items));
-        //                        var propsArray = Object.getOwnPropertyNames(items).sort();
-        //                        var autosaves = document.body.lastChild.appendChild(document.createElement('div'));
-        //						autosaves.className = 'autosaves';
-        //						propsArray.forEach(function(value, index, object) {
-        //							var autosave = document.createElement('pre');
-        //						autosave.className = 'autosave';
-        //						autosave.contentEditable = true;
-        //							autosaves.appendChild(autosave).innerText = items[value];
-        //							autosave.appendChild(document.createElement('button'));
-        //						});
-        //                	}
-        //            });
-        //        });
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             console.log(sender.tab ?
                 "message from a content script:" + sender.tab.url :
