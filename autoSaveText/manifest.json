@@ -3,6 +3,7 @@
         "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
         "version": "1",
         "permissions": [
+        "activeTab",
 //        "https://plus.google.com/",
 //    		"<all_urls>",
     "contextMenus",

@@ -78,6 +78,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                         console.log(chrome.runtime.lastError.message);
                     } else {
                         console.log(items);
+                        var count = Object.getOwnPropertyNames(items).length;
 //                        var propsArray = Object.getOwnPropertyNames(items).sort();
 //                        var autosaves = document.body.lastChild.appendChild(document.createElement('div'));
 //						autosaves.className = 'autosaves';
@@ -89,7 +90,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
 //							autosave.appendChild(document.createElement('button'));
 //						});
                         chrome.runtime.sendMessage({
-                            autosaveCount: propsArray.length
+                            autosaveCount: count
                         }, function(response) {
                             console.log("response from ", response);
                         });
