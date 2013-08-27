@@ -1,6 +1,7 @@
 // Broken keys in canary Aura: {}[]\~@€µ
 // Broken keys on Kuckuck: <>|
 console.time("autosave.js loading takes");
+console.log("autosave.js loads into", location.href);
 //TODO Please note this one print output for readyState complete.
 //document.onreadystatechange = function(event) {
 //    console.time("autosave.js onreadystatechange");
@@ -30,26 +31,6 @@ console.time("autosave.js loading takes");
 //    console.timeEnd("autosave.js focus");
 //}, false);
 
-(function() {
-    chrome.contextMenus.removeAll(function() {
-        if (chrome.extension.lastError) {
-            toast("lastError:" + chrome.extension.lastError.message);
-        }
-    });
-    var removeAllAusosavesId = chrome.contextMenus.create({
-        id: "getSelectionId",
-        type: "normal",
-        title: "getSelection '%s'",
-        contexts: ["editable"]
-    }, function() {
-        if (chrome.extension.lastError) {
-            console.log("lastError:" + chrome.extension.lastError.message);
-        }
-    });
-    chrome.contextMenus.onClicked.addListener(function(info, tab) {
-        });
-        })();
-
 window.addEventListener('keypress', function() { //$NON-NLS-0$
     try {
         console.time("autosave.js keypress");
@@ -71,9 +52,19 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
             };
         }
         var ellipsis = "\u2026";
-        //        if (event.target.readyState !== "complete") {
-        //            return;
-        //        }
+        //        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        //            console.log(sender.tab ?
+        //                "message from a content script:" + sender.tab.url :
+        //                "message from the extension");
+        //            if (request["autosaveCount"]) {
+        //                chrome.contextMenus.update(removeAllAutsosavesId, {
+        //                    title: "remove all " + request["autosaveCount"] + " autosaves"
+        //                });
+        //                sendResponse({
+        //                    farewell: "goodbye"
+        //                });
+        //            }
+        //        });
         //TODO Please note this is based on Example in
         //https://developer.mozilla.org/en-US/docs/Web/API/window.clearTimeout
         var AutosaveTimer = {
@@ -85,9 +76,25 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                 chrome.storage.sync.get(null, function(items) {
                     if (chrome.runtime.lastError) {
                         console.log(chrome.runtime.lastError.message);
-                    } else 
+                    } else {
                         console.log(items);
-                    });
+//                        var propsArray = Object.getOwnPropertyNames(items).sort();
+//                        var autosaves = document.body.lastChild.appendChild(document.createElement('div'));
+//						autosaves.className = 'autosaves';
+//						propsArray.forEach(function(value, index, object) {
+//							var autosave = document.createElement('pre');
+//						autosave.className = 'autosave';
+//						autosave.contentEditable = true;
+//							autosaves.appendChild(autosave).innerText = items[value];
+//							autosave.appendChild(document.createElement('button'));
+//						});
+                        chrome.runtime.sendMessage({
+                            autosaveCount: propsArray.length
+                        }, function(response) {
+                            console.log("response from ", response);
+                        });
+                    }
+                });
                 chrome.storage.sync.get(thisAutosaveTimer.autosaveKey, function(items) {
                     if (chrome.runtime.lastError) {
                         toast(chrome.runtime.lastError.message);
@@ -119,7 +126,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
             },
 
             setup: function(timeoutMilliseconds, autosaveKey, autosaveElement) {
-                                this.cancel();
+                this.cancel();
                 var self = this;
                 self.autosaveKey = autosaveKey;
                 self.autosaveElement = autosaveElement;
@@ -129,12 +136,12 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                 console.log("setup auto-save timeout for", this);
             },
 
-//            set: function() {
-//                this.timeoutID = window.setTimeout(function() {
-//                    this.autosave();
-//                }, this.timeoutMilliseconds);
-//                console.log("set auto-save timeout for", this);
-//            },
+            //            set: function() {
+            //                this.timeoutID = window.setTimeout(function() {
+            //                    this.autosave();
+            //                }, this.timeoutMilliseconds);
+            //                console.log("set auto-save timeout for", this);
+            //            },
 
             cancel: function() {
                 if (typeof this.timeoutID === "number") {
@@ -148,8 +155,8 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
         (function setupAutoSave() {
             if (event.target.dataset.autoSave === undefined) {
                 var autosaveKey = "autosave:" + (new Date()).toJSON();
-//                var at = AutosaveTimer.setup(3000, autosaveKey, event.target);
-//                if (at === undefined) {
+                //                var at = AutosaveTimer.setup(3000, autosaveKey, event.target);
+                //                if (at === undefined) {
                 if (false) {
                     console.log((new Date()).toJSON(), "AutosaveTimer.setup(", 3000, autosaveKey, event.target, ") returns undefined");
                 } else {
@@ -159,32 +166,11 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                     event.target.dataset.autoSave = autosaveKey;
                 }
             }
-            //            var iframes = document.getElementsByTagName("iframe");
-            //            var ce = document.querySelectorAll('[contenteditable]');
-            //            var itt = document.querySelectorAll('input[type=text]');
-            //            for (i = 0; i < ce.length; i++) {
-            //                //                    at = AutosaveTimer.setup(3000, "autosave:" + (new Date()).toJSON() + ":" + i, ce[i]);
-            //                ce[i].addEventListener('keypress', function(event) {
-            //                    //                	at.cancel();
-            //                }, false);
-            //            }
-            //            for (j = 0; j < itt.length; j++) {
-            //                //                    at = AutosaveTimer.setup(3000, "autosave:" + (new Date()).toJSON() + ":" + j, itt[j]);
-            //                itt[j].addEventListener('keypress', function(event) {
-            //                    //                	at.cancel();
-            //                }, false);
-            //            }
-            //            for (var i = 0; i < iframes.length; i++) {
-            //                var iframe = iframes[i];
-            //                if (iframe.src.match('https://plus.google.com/u/0/_/notifications/')) {
-            //                    console.dirxml(iframe);
-            //                    window.alert('cannot provide autosave feature inside Google+ notifications.\n\nPlease use "View Post" link at bottom of notifications.')
-            //                }
-            //            }
         })();
     } catch (exception) {
-        window.alert((new Date()).toJSON() + ":\n" + "document.readyState:" + document.readyState + "\ndocument.URL:" + document.URL + "\ne.stack:" + exception.stack);
-        toast((new Date()).toJSON() + "\nexception.stack:" + exception.stack + '\n');
+        window.alert('exception.message: '+exception.message+'\n\n'+'exception.stack: ' + exception.stack);
+        toast('exception.message: '+exception.message+'\n\n'+'exception.stack: ' + exception.stack);
+        console.log((new Date()).toJSON(), "exception:", exception);
     }
 }, false);
 // TODO End of onreadystatechanged function:

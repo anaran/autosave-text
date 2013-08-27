@@ -1,6 +1,6 @@
 var toast = function(message) {
     var myd = document.createElement('span');
- 	var messages =  document.body.appendChild(document.createElement('div'));
+ 	var messages =  document.querySelector('div.messages') || document.body.appendChild(document.createElement('div'));
  	messages.className = 'messages';
     myd.className = "toast";
     myd.innerText = message;
@@ -9,7 +9,7 @@ var toast = function(message) {
         // myd.style.opacity = 0;
         messages.removeChild(myd);
         console.log("running toast timeout");
-    }, 30000);
+    }, 10000);
     myd.onclick = function(event) {
         if (to) {
             clearTimeout(to);
