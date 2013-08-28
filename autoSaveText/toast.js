@@ -22,7 +22,7 @@ var toast = function(message) {
                 }
             }
             console.log("clearing toast timeout");
-            myd.style.opacity = 0.3;
+            myd.style.opacity = 0.9;
         } else {
             messages.removeChild(myd);
         }

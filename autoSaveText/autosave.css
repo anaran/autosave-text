@@ -13,10 +13,10 @@
     background-color: gray;
     color: white;
     font-size: smaller;
-    /*z-index: 1000;*/
     transition-property: opacity;
-    transition-duration: 2s;
-    transition-timing-function: linear;
+    transition-duration: 1s;
+    transition-timing-function: easeout;
+	opacity: 0.5;
   }
 
 section.anchor {
@@ -110,5 +110,8 @@ section.anchor {
  flex-flow: row wrap;
   justify-content: flex-end;
   	margin: 0;
+    /*TODO Please note http://developer.chrome.com/extensions/samples.html
+    uses a z-index of 5 for the Feedback dogs-ear in the bottom right.*/
+    z-index: 10;
  }
  

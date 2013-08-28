@@ -36,10 +36,10 @@ document.onreadystatechange = function(event) {
             if (chrome.runtime.lastError) {
                 console.log(chrome.runtime.lastError.message);
             } else {
-                var autosaveTimeout = document.querySelector('#timeout');
+                var autosaveTimeoutElement = document.querySelector('#timeout');
                 var key = "autosave,timeout";
-                autosaveTimeout.value = items[key];
-                autosaveTimeout.addEventListener('change', function(event) {
+                autosaveTimeoutElement.value = items[key];
+                autosaveTimeoutElement.addEventListener('change', function(event) {
                     //TODO Save value to sync storage
                     var item = {};
                     item[key] = event.target.value;
@@ -47,7 +47,7 @@ document.onreadystatechange = function(event) {
                         if (chrome.runtime.lastError) {
                             toast(chrome.runtime.lastError.message);
                         } else {
-                            toast((new Date()).toJSON() + " saved autosave timeout value " + event.target.value);
+                            toast((new Date()).toJSON() + " saved " + key + " value " + event.target.value);
                         }
                     });
                 }, false);
