@@ -6,7 +6,6 @@ document.onreadystatechange = function(event) {
         var selectAll = document.querySelector('#select_all');
         selectAll.addEventListener('change', function(event) {
             //    selectAll.onchange = function(event) {
-            var selectOneNodeList = document.querySelectorAll('.select_one');
             for (i = 0; i < selectOneNodeList.length; i++) {
                 selectOneNodeList[i].checked = event.target.checked;
             }
@@ -62,17 +61,7 @@ document.onreadystatechange = function(event) {
                     var selectOne = autosave.querySelector('.select_one');
                     selectOne.dataset.autoSave = value;
                     var startDateTime = autosave.querySelector('.autosave_start');
-                    var shortKey = value.replace('autosave,', '');
-                    try {
-                        var dateTime = new Date(shortKey);
-                        if (isNaN(dateTime.getTime())) {
-                            startDateTime.innerText = shortKey;
-                        } else {
-                            startDateTime.innerText = dateTime.toString().replace(/\s*\([^)]+\)/, '');
-                        }
-                    } catch (exception) {
-                        startDateTime.innerText = shortKey;
-                    }
+                    startDateTime.innerText = new Date(value.replace('autosave,', '')).toString().replace(/\s*\([^)]+\)/, '');
                     var autosaveText = autosave.querySelector('.autosave_text');
                     autosaveText.innerText = items[value];
                     autosaves.appendChild(autosave);

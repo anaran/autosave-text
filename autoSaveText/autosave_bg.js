@@ -19,7 +19,7 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: reviewAllAutsosavesId,
                     type: "normal",
-                    title: "remove all autosaves",
+                    title: "review all autosaves",
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
@@ -48,14 +48,37 @@ console.log("autosave_bg.js loads into", location.href);
             switch (info.menuItemId) {
                 case reviewAllAutsosavesId:
                     {
-                        chrome.extension.
-//                        chrome.storage.sync.get(null, function(items) {
-//                            if (chrome.runtime.lastError) {
-//                                console.log(chrome.runtime.lastError.message);
-//                            } else {
-//                                window.alert(JSON.stringify(items));
-//                            }
-//                        });
+                        var optionsURL = chrome.extension.getURL("options.html");
+                        chrome.tabs.query({
+                            url: optionsURL
+                        }, function(tabArray) {
+                            console.log("chrome.tabs.query callback gets", tabArray);
+                            if (tabArray.length === 1) {
+                                chrome.tabs.update(tabArray[0].id, {
+                                    active: true,
+                                    //                                    highlighted: true,
+                                    //                                    pinned: true
+                                    openerTabId: tab.id
+                                });
+                            } else {
+                                chrome.tabs.create({
+                                    url: optionsURL,
+                                    active: true,
+                                    //                                    highlighted: true,
+                                    //                                    pinned: true
+                                    openerTabId: tab.id
+                                }, function(tabArray) {
+                                    console.log("chrome.tabs.create callback gets", tabArray);
+                                });
+                            }
+                        });
+                        //                        chrome.storage.sync.get(null, function(items) {
+                        //                            if (chrome.runtime.lastError) {
+                        //                                console.log(chrome.runtime.lastError.message);
+                        //                            } else {
+                        //                                window.alert(JSON.stringify(items));
+                        //                            }
+                        //                        });
                         break;
                     }
                 case captureVisibleTabId:

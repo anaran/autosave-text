@@ -2,14 +2,14 @@
     "name": "Autosave Text",
         "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
         "version": "1",
-  "browser_action": {
+//  "browser_action": {
 //    "default_icon": {                    // optional
 //      "19": "images/icon19.png",           // optional
 //      "38": "images/icon38.png"            // optional
 //    },
-    "default_title": "Autosave Text",      // optional; shown in tooltip
-    "default_popup": "options.html"        // optional
-  },
+//    "default_title": "Autosave Text",      // optional; shown in tooltip
+//    "default_popup": "options.html"        // optional
+//  },
         "permissions": [
         "activeTab",
 //        "https://plus.google.com/",
