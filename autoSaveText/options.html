@@ -4,25 +4,22 @@
 	<head>
 		<meta charset=utf-8>
 		<script src="options.js"></script>
+		<script src="toast.js"></script>
 		<link rel="stylesheet" href="autosave.css">
 		<title>Autosave Text Options</title>
 	</head>
 	<body>
 		<div class="autosaves">
-			
 		<div class="autosave_template">
-			<div>
+			<div class="autosave_header">
 			<input type="checkbox" class="select_one"/>
 <!--
-			<span class="started">
 -->
 <!--
 -->
-<!--
--->
-			<span>started at</span><span class="autosave_start"></span>
+			<span class="autosave_start"></span>
 			</div>
-			<div class="text" contenteditable>
+			<div class="autosave_text" contenteditable>
 				autosaved text
 			</div>
 		</div>
@@ -36,7 +33,7 @@
 		</div>
 			<input type="checkbox" id="select_all"/>
 <label for="select_all">Select all autosaves</label>
-			<input type="button" id="delete_selected" name="Delete Selected">
+			<input type="button" id="delete_selected" value="Delete Selected">
 		<hr/>
 	</section>
 	</body>

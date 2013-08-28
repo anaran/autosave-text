@@ -12,12 +12,12 @@ console.log("autosave_bg.js loads into", location.href);
         //autosave_bg.js loads into chrome-extension://ddbcobcapggbhjcihdedihlennemenmm/_generated_background_page.html autosave_bg.js:2
         //autosave_bg.js loading takes: 61.000ms autosave_bg.js:88
         //autosave_bg.js is loaded at 2013-08-27T19:07:46.810Z autosave_bg.js:89
-        var removeAllAutsosavesId = "removeAllAutosaves";
-        chrome.contextMenus.update(removeAllAutsosavesId, {}, function() {
+        var reviewAllAutsosavesId = "reviewAllAutosaves";
+        chrome.contextMenus.update(reviewAllAutsosavesId, {}, function() {
             if (chrome.extension.lastError) {
                 console.log("lastError:" + chrome.extension.lastError.message);
                 chrome.contextMenus.create({
-                    id: removeAllAutsosavesId,
+                    id: reviewAllAutsosavesId,
                     type: "normal",
                     title: "remove all autosaves",
                     contexts: ["editable"]
@@ -46,15 +46,16 @@ console.log("autosave_bg.js loads into", location.href);
         });
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
             switch (info.menuItemId) {
-                case removeAllAutsosavesId:
+                case reviewAllAutsosavesId:
                     {
-                        chrome.storage.sync.get(null, function(items) {
-                            if (chrome.runtime.lastError) {
-                                console.log(chrome.runtime.lastError.message);
-                            } else {
-                                window.alert(JSON.stringify(items));
-                            }
-                        });
+                        chrome.extension.
+//                        chrome.storage.sync.get(null, function(items) {
+//                            if (chrome.runtime.lastError) {
+//                                console.log(chrome.runtime.lastError.message);
+//                            } else {
+//                                window.alert(JSON.stringify(items));
+//                            }
+//                        });
                         break;
                     }
                 case captureVisibleTabId:
@@ -76,7 +77,7 @@ console.log("autosave_bg.js loads into", location.href);
             switch (Object.getOwnPropertyNames(request)[0]) {
                 case "autosaveCount":
                     {
-                        chrome.contextMenus.update(removeAllAutsosavesId, {
+                        chrome.contextMenus.update(reviewAllAutsosavesId, {
                             title: "remove all " + request["autosaveCount"] + " autosaves"
                         });
                         sendResponse({

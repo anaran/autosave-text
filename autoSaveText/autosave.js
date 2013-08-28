@@ -155,7 +155,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
 
         (function setupAutoSave() {
             if (event.target.dataset.autoSave === undefined) {
-                var autosaveKey = "autosave:" + (new Date()).toJSON();
+                var autosaveKey = "autosave," + (new Date()).toJSON();
                 //                var at = AutosaveTimer.setup(3000, autosaveKey, event.target);
                 //                if (at === undefined) {
                 if (false) {

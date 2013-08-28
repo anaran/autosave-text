@@ -1,3 +1,9 @@
+body {
+    /*overflow: auto;*/
+    width: 100%;
+    height: 100%;
+    }
+
 .toast {
   	margin: 0.5em;
     display: block;
@@ -17,6 +23,7 @@ section.anchor {
 	top:0;
 	background: white;
 	width: 100%;
+	opacity: 0.98;
 	}
 
 /*.select_one {
@@ -36,37 +43,53 @@ section.anchor {
 .autosave_template {
 	display: none;
 	}
+
+.autosave_header {
+	font-size: smaller;
+	background: black;
+	color: white;
+	}
 	
 .autosave {
      border-radius: 0.5em;
-	background: lightblue;
+	/*background: lightblue;*/
   	border: 1em solid white;
 	max-width: 30%;
 	}
 
- .text:not(focus) {
+ .autosave_text:not(focus) {
+	background: white;
+	/*background: transparent;*/
+	color: black;
   	border: 1px dashed;
  	white-space: normal;
  	display: inline-block;
-	/*word-wrap: break-word;*/
- 	/*word-break: break-all;*/
 	min-height: 1em;
 	max-height: 3em;
 	overflow: hidden;
+	/*opacity: 0.5;*/
   }
+
+/*.autosave_text:focus +  .autosave_text {
+  }*/
   
- .text:focus {
+ .autosave_text:focus {
+	/*background: transparent;*/
+	background: white;
+	color: black;
 	font-size: medium;
  	white-space: pre;
+	padding-top: 3em;
+	/*border-top: 3em solid gray;*/
 	max-height: none;
 	max-width: none;
 	overflow: hidden;
+	/*opacity: 0.98;*/
  }
 	
 .autosaves {
   	position: relative;
   	top: 10em;
-  	margin: 10em;
   	padding: 0.1em;
  display: inline-flex;
  flex-flow: row wrap;
