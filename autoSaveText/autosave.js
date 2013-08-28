@@ -75,7 +75,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                 });
                 chrome.storage.sync.get(null, function(items) {
                     if (chrome.runtime.lastError) {
-                        console.log(chrome.runtime.lastError.message);
+                        console.log(chrome.runtime.lastError.message, items);
                     } else {
                         console.log(items);
                         var count = Object.getOwnPropertyNames(items).length;
@@ -98,6 +98,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                 });
                 chrome.storage.sync.get(thisAutosaveTimer.autosaveKey, function(items) {
                     if (chrome.runtime.lastError) {
+                        console.log(chrome.runtime.lastError.message, items);
                         toast(chrome.runtime.lastError.message);
                     } else {
                         console.log(items);
@@ -110,6 +111,7 @@ window.addEventListener('keypress', function() { //$NON-NLS-0$
                             item[key] = text;
                             chrome.storage.sync.set(item, function() {
                                 if (chrome.runtime.lastError) {
+                        console.log(chrome.runtime.lastError.message, item);
                                     toast(chrome.runtime.lastError.message);
                                 } else {
                                     toast((new Date()).toJSON() + " autosave " + key);

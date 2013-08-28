@@ -19,7 +19,7 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: reviewAllAutsosavesId,
                     type: "normal",
-                    title: "review all autosaves",
+                    title: "Review all Autosaves",
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
@@ -35,7 +35,7 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: captureVisibleTabId,
                     type: "normal",
-                    title: "capture visible tab",
+                    title: "Capture Visible Tab",
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
@@ -101,7 +101,7 @@ console.log("autosave_bg.js loads into", location.href);
                 case "autosaveCount":
                     {
                         chrome.contextMenus.update(reviewAllAutsosavesId, {
-                            title: "remove all " + request["autosaveCount"] + " autosaves"
+                            title: "Review all " + request["autosaveCount"] + " Autosaves"
                         });
                         sendResponse({
                             farewell: "goodbye"

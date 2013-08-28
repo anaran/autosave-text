@@ -1,9 +1,9 @@
-html {
-    /*overflow: auto;*/
+/*html {
+    overflow: auto;
     min-width: 60em;
     min-height: 20em;
     resize: both;
-    }
+    }*/
 
 .toast {
   	margin: 0.5em;
