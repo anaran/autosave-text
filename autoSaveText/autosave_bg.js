@@ -44,71 +44,118 @@ console.log("autosave_bg.js loads into", location.href);
                 });
             }
         });
+
+        chrome.storage.sync.get(null, function(items) {
+            if (chrome.runtime.lastError) {
+                console.log(chrome.runtime.lastError.message, items);
+            } else {
+                console.log(items);
+                // TODO this includes other autosave settings like timeout, possible future disable on shrink parameter.
+                var count = Object.getOwnPropertyNames(items).filter(function(key) {
+                    return key.match(/^autosave,text,/);
+                }).length;
+                chrome.contextMenus.update(reviewAllAutsosavesId, {
+                    title: "Review all " + count + " Autosaves"
+                });
+            }
+        });
+        //        chrome.runtime.sendMessage({
+        //            autosaveCount: count
+        //        }, function(response) {
+        //            console.log("response from ", response);
+        //        });
+        var reviewAllAutsosaves = function(tab) {
+            var optionsURL = chrome.extension.getURL("options.html");
+            chrome.tabs.query({
+                url: optionsURL
+            }, function(tabArray) {
+                console.log("chrome.tabs.query callback gets", tabArray);
+                if (tabArray.length === 1) {
+                    chrome.tabs.update(tabArray[0].id, {
+                        active: true,
+                        //                                    highlighted: true,
+                        //                                    pinned: true
+                        openerTabId: tab.id
+                    });
+                } else {
+                    chrome.tabs.create({
+                        url: optionsURL,
+                        active: true,
+                        //                                    highlighted: true,
+                        //                                    pinned: true
+                        openerTabId: tab.id
+                    }, function(tabArray) {
+                        console.log("chrome.tabs.create callback gets", tabArray);
+                    });
+                }
+            });
+        }
+        var captureVisibleTab = function(tab) {
+            chrome.tabs.captureVisibleTab(tab.windowId, {
+                format: "png"
+            }, function(dataUrl) {
+                console.log(dataUrl);
+                window.open(dataUrl);
+            });
+        }
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
+            chrome.storage.sync.getBytesInUse(null, function(bytesUsed) {
+                console.log('bytesUsed', bytesUsed);
+            });
             switch (info.menuItemId) {
                 case reviewAllAutsosavesId:
                     {
-                        var optionsURL = chrome.extension.getURL("options.html");
-                        chrome.tabs.query({
-                            url: optionsURL
-                        }, function(tabArray) {
-                            console.log("chrome.tabs.query callback gets", tabArray);
-                            if (tabArray.length === 1) {
-                                chrome.tabs.update(tabArray[0].id, {
-                                    active: true,
-                                    //                                    highlighted: true,
-                                    //                                    pinned: true
-                                    openerTabId: tab.id
-                                });
-                            } else {
-                                chrome.tabs.create({
-                                    url: optionsURL,
-                                    active: true,
-                                    //                                    highlighted: true,
-                                    //                                    pinned: true
-                                    openerTabId: tab.id
-                                }, function(tabArray) {
-                                    console.log("chrome.tabs.create callback gets", tabArray);
-                                });
-                            }
-                        });
-                        //                        chrome.storage.sync.get(null, function(items) {
-                        //                            if (chrome.runtime.lastError) {
-                        //                                console.log(chrome.runtime.lastError.message);
-                        //                            } else {
-                        //                                window.alert(JSON.stringify(items));
-                        //                            }
-                        //                        });
+                        reviewAllAutsosaves(tab);
                         break;
                     }
                 case captureVisibleTabId:
                     {
-                        chrome.tabs.captureVisibleTab(tab.windowId, {
-                            format: "png"
-                        }, function(dataUrl) {
-                            console.log(dataUrl);
-                            window.open(dataUrl);
-                        });
+                        captureVisibleTab(tab);
                         break;
                     }
             }
         });
-        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-            console.log(sender.tab ?
-                "message from a content script:" + sender.tab.url :
-                "message from the extension");
-            switch (Object.getOwnPropertyNames(request)[0]) {
-                case "autosaveCount":
-                    {
-                        chrome.contextMenus.update(reviewAllAutsosavesId, {
-                            title: "Review all " + request["autosaveCount"] + " Autosaves"
-                        });
-                        sendResponse({
-                            farewell: "goodbye"
-                        });
-                        break;
+        //        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        //            console.log(sender.tab ?
+        //                "message from a content script:" + sender.tab.url :
+        //                "message from the extension");
+        //            switch (Object.getOwnPropertyNames(request)[0]) {
+        //                case "autosaveCount":
+        //                    {
+        //                        chrome.contextMenus.update(reviewAllAutsosavesId, {
+        //                            title: "Review all " + request["autosaveCount"] + " Autosaves"
+        //                        });
+        //                        sendResponse({
+        //                            farewell: "goodbye"
+        //                        });
+        //                        break;
+        //                    }
+        //            }
+        //        });
+        chrome.commands.onCommand.addListener(function(command) {
+            console.log('onCommand event received for message: ', command);
+            chrome.tabs.query({
+                active: true,
+                highlighted: true
+            }, function(tabArray) {
+                console.log("chrome.tabs.query callback gets", tabArray);
+                if (tabArray.length > 0) {
+                switch (command) {
+                    case "review-autosaves":
+                        {
+                            reviewAllAutsosaves(tabArray[0]);
+                            break;
+                        }
+                    case "capture-tab":
+                        {
+                            captureVisibleTab(tabArray[0]);
+                            break;
+                        }
+                }
+                } else {
+//                console.log("chrome.tabs.query callback gets", tabArray);
                     }
-            }
+            });
         });
     } catch (exception) {
         window.alert('exception.message: ' + exception.message + '\n\n' + 'exception.stack: ' + exception.stack);

@@ -4,7 +4,6 @@
         "version": "1",
         "permissions": [
         "activeTab",
-        "https://plus.google.com/",
         "contextMenus",
         "storage",
         "unlimitedStorage"],
@@ -13,8 +12,24 @@
             "autosave_bg.js",
             "toast.js"]
     },
+        "commands": {
+        "review-autosaves": {
+            "suggested_key": {
+                "default": "Alt+Shift+A"
+//                ,                    "mac": "Alt+MacCtrl+A"
+            },
+                "description": "Send a 'review-autosaves' event to the extension"
+        },
+            "capture-tab": {
+            "suggested_key": {
+                "default": "Alt+Shift+C"
+//                ,                    "mac": "Alt+MacCtrl+C"
+            },
+                "description": "Send a 'capture-tab' event to the extension"
+        }
+    },
         "content_scripts": [{
-//           "all_frames": true,
+                   "all_frames": true,
         "matches": [
             "<all_urls>"],
             "js": [

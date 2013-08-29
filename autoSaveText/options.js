@@ -5,13 +5,11 @@ document.onreadystatechange = function(event) {
     (function() {
         var selectAll = document.querySelector('#select_all');
         selectAll.addEventListener('change', function(event) {
-            //    selectAll.onchange = function(event) {
             var selectOneNodeList = document.querySelectorAll('.select_one');
             for (i = 0; i < selectOneNodeList.length; i++) {
                 selectOneNodeList[i].checked = event.target.checked;
             }
         }, false);
-        //    };
         var deleteSelected = document.querySelector('#delete_selected');
         deleteSelected.addEventListener('click', function(event) {
             var selectOneCheckedNodeList = document.querySelectorAll('.select_one');
@@ -36,22 +34,61 @@ document.onreadystatechange = function(event) {
             if (chrome.runtime.lastError) {
                 console.log(chrome.runtime.lastError.message);
             } else {
-                var autosaveTimeoutElement = document.querySelector('#timeout');
-                var key = "autosave,timeout";
-                autosaveTimeoutElement.value = items[key];
-                autosaveTimeoutElement.addEventListener('change', function(event) {
-                    //TODO Save value to sync storage
+                var autosaveDisableLossElement = document.querySelector('#disable');
+                var disableLossKey = "autosave,disable,loss";
+                autosaveDisableLossElement.value = items[disableLossKey];
+                autosaveDisableLossElement.addEventListener('change', function(event) {
                     var item = {};
-                    item[key] = event.target.value;
+                    item[disableLossKey] = event.target.value;
                     chrome.storage.sync.set(item, function() {
                         if (chrome.runtime.lastError) {
                             toast(chrome.runtime.lastError.message);
                         } else {
-                            toast((new Date()).toJSON() + " saved " + key + " value " + event.target.value);
+                            toast((new Date()).toJSON() + " saved " + disableLossKey + " value " + event.target.value);
                         }
                     });
                 }, false);
-                var propsArray = Object.getOwnPropertyNames(items).sort();
+
+                var autosaveTimeoutElement = document.querySelector('#timeout');
+                var timeoutKey = "autosave,timeout";
+                autosaveTimeoutElement.value = items[timeoutKey];
+                autosaveTimeoutElement.addEventListener('change', function(event) {
+                    var item = {};
+                    item[timeoutKey] = event.target.value;
+                    chrome.storage.sync.set(item, function() {
+                        if (chrome.runtime.lastError) {
+                            toast(chrome.runtime.lastError.message);
+                        } else {
+                            toast((new Date()).toJSON() + " saved " + timeoutKey + " value " + event.target.value);
+                        }
+                    });
+                }, false);
+
+
+                var displayInternalElement = document.querySelector('#display_internal');
+                var displayInternalKey = "autosave,display,internal";
+                //        TODO Negate twice to handle undefined value as well.
+                displayInternalElement.checked = !! items[displayInternalKey];
+                displayInternalElement.addEventListener('change', function(event) {
+                    displayInternalElement.checked = event.target.checked;
+                    var item = {};
+                    item[displayInternalKey] = displayInternalElement.checked;
+                    chrome.storage.sync.set(item, function() {
+                        if (chrome.runtime.lastError) {
+                            toast(chrome.runtime.lastError.message);
+                        } else {
+                            toast((new Date()).toJSON() + " saved " + displayInternalKey + " value " + item[displayInternalKey]);
+                            //                            TODO Please note the we need to reload page only when the asynchronuous sync.set calls back without failure!
+                            location.reload(true);
+                        }
+                    });
+                }, false);
+
+
+
+                var propsArray = Object.getOwnPropertyNames(items).filter(function(key) {
+                    return displayInternalElement.checked || key.match(/^autosave,text,/);
+                }).sort();
                 var autosaves = document.querySelector('.autosaves');
                 var autosaveTemplate = autosaves.querySelector('.autosave_template');
                 propsArray.forEach(function(value, index, object) {
@@ -62,16 +99,16 @@ document.onreadystatechange = function(event) {
                     var selectOne = autosave.querySelector('.select_one');
                     selectOne.dataset.autoSave = value;
                     var startDateTime = autosave.querySelector('.autosave_start');
-                    var shortKey = value.replace('autosave,', '');
+                    var shortKey = value.replace('autosave,text,', '');
                     try {
                         var dateTime = new Date(shortKey);
                         if (isNaN(dateTime.getTime())) {
-                            startDateTime.innerText = shortKey;
+                            startDateTime.innerText = value;
                         } else {
                             startDateTime.innerText = dateTime.toString().replace(/\s*\([^)]+\)/, '');
                         }
                     } catch (exception) {
-                        startDateTime.innerText = shortKey;
+                        startDateTime.innerText = value;
                     }
                     var autosaveText = autosave.querySelector('.autosave_text');
                     autosaveText.innerText = items[value];

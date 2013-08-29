@@ -25,16 +25,34 @@
 		</div>
 		</div>
 	<section class="anchor">
-		<h1>Autosave Text Options</h1>
-<input type="number" id="timeout" name="timeout" min="0.5" step="0.5" max="10"/>
-<label for="timeout">Autosave Timeout</label>
+		<h1 class="autosave_options">Autosave Text Options</h1>
 		<p>
-			Text will automatically be saved when no changes it to are made within the timeout period in seconds. 
+<input type="number" class="timeout" id="timeout" name="timeout" min="0.5" step="0.5" max="10"/>
+<label for="timeout">Autosave Timeout</label>
+		</p>
+		<p class="tooltip_timeout">
+			Text will be saved automatically when no changes to it are made within a
+			timeout period in seconds. 
 			Any change restarts the timeout operation.
 		</p>
+		<p>
+<input type="number" class="disable" id="disable" name="disable" min="4" step="1" max="40"/>
+<label for="disable">Autosave Disable on Loss</label>
+		</p>
+		<p class="tooltip_disable">
+			Text will no longer be automatically saved when it shortens by more
+			than the given number of characters from its last autosave length.
+			Autosaving resumes when it grows within bounds again.
+		</p>
+		<p>
+			<input type="checkbox" id="display_internal"/>
+<label for="display_internal">Display internal autosave keys</label>
+		</p>
+		<p>
 			<input type="checkbox" id="select_all"/>
 <label for="select_all">Select all autosaves</label>
 			<input type="button" id="delete_selected" value="Delete Selected">
+		</p>
 		<hr/>
 	</section>
 	</body>

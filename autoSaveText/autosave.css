@@ -5,6 +5,16 @@
     resize: both;
     }*/
 
+.autosave_options {
+    /*background: linear-gradient(to right, white, black 4em, white 5em, black 6em, white 10em);*/
+    /*background: linear-gradient(to right, white 4em, black 5em, white 6em);*/
+    /*background: linear-gradient(to right, black, white 5em, black 10em);*/
+    background: linear-gradient(to bottom, black, black 15% , white);
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+    }
+    
 .toast {
   	margin: 0.5em;
     display: block;
@@ -13,9 +23,6 @@
     background-color: gray;
     color: white;
     font-size: smaller;
-    transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: easeout;
 	opacity: 0.5;
   }
 
@@ -27,19 +34,41 @@ section.anchor {
 	opacity: 0.98;
 	}
 
-/*.select_one {
-    display: inline-block;
- flex-flow: row nowrap;
- justify-content: flex-start;
-}*/
+p+p.tooltip_timeout {
+  	margin: 0.5em;
+    position: absolute;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+}
 
-/*.started {
-	font-size: smaller;
-      display: inline-block;
- flex-flow: row nowrap;
- justify-content: flex-end;
-	}
- */
+p:active+p.tooltip_timeout {
+    display: inline-block;
+}
+
+p:hover+p.tooltip_timeout {
+    display: inline-block;
+}
+
+p+p.tooltip_disable {
+  	margin: 0.5em;
+    position: absolute;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+}
+
+p:active+p.tooltip_disable {
+    display: inline-block;
+}
+
+p:hover+p.tooltip_disable {
+    display: inline-block;
+}
 
 .autosave_template {
 	display: none;
@@ -56,6 +85,7 @@ section.anchor {
 	/*background: lightblue;*/
   	border: 1em solid white;
 	max-width: 30%;
+	resize: both;
 	}
 
  .autosave_text:not(focus) {
@@ -90,7 +120,7 @@ section.anchor {
 	
 .autosaves {
   	position: relative;
-  	top: 10em;
+  	top: 14em;
   	padding: 0.1em;
  display: inline-flex;
  flex-flow: row wrap;
