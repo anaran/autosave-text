@@ -217,8 +217,8 @@ console.log("autosave_bg.js loads into", location.href);
             });
         });
     } catch (exception) {
-        window.alert('exception.message: ' + exception.message + '\n\n' + 'exception.stack: ' + exception.stack);
-        console.log((new Date()).toJSON(), "exception:", exception);
+        window.alert('exception.stack: ' + exception.stack);
+        console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
     }
 })();
 

@@ -81,6 +81,10 @@ span:hover+p.tooltip_disable {
     display: inline-block;
 }
 
+.delete_selected {
+    width: 16em;
+}
+
 .autosave_template {
 	display: none;
 	}
