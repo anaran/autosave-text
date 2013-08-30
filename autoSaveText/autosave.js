@@ -4,8 +4,8 @@
     console.time("autosave.js loading takes");
     console.log("autosave.js loads into", location.href);
     var autosaveTimeoutKey = "autosave,timeout";
-            // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
-            var autosaveTimeoutSeconds = 3;
+    // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
+    var autosaveTimeoutSeconds = 3;
     chrome.storage.sync.get(autosaveTimeoutKey, function(items) {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError.message);
@@ -14,9 +14,9 @@
             autosaveTimeoutSeconds = items[autosaveTimeoutKey];
         }
     });
-                var disableLossKey = "autosave,disable,loss";
-            // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
-            var disableLossMaximum = 10;
+    var disableLossKey = "autosave,disable,loss";
+    // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
+    var disableLossMaximum = 10;
     chrome.storage.sync.get(disableLossKey, function(items) {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError.message);
@@ -25,12 +25,20 @@
             disableLossMaximum = items[disableLossKey];
         }
     });
-                
-                
-    // TODO Please note forgettig the event argument here causes nasty bug of document.event being used!
+    // TODO Please note: Forgetting the event argument here causes nasty bug of document.event being used!
     var autosaveEventHandler = function(event) { //$NON-NLS-0$
         try {
             console.time("autosave.js keypress");
+            //exception.stack: TypeError: Cannot call method 'inspect' of undefined
+            //at autosaveEventHandler (chrome-extension://ddbcobcapggbhjcihdedihlennemenmm/autosave.js:32:37)
+            // console._commandLineAPI.inspect(event.target);
+            // TODO Please note Don't autosave password type            
+            if (!event.target.isContentEditable && event.target.localName !== 'input' || event.target.getAttribute('type').toLowerCase() === 'password') {
+                console.log("not recording this for your protection", event.target);
+                //debugger;
+                return;
+            }
+            //            if (event.target.)
             //                console.dirxml(document.querySelectorAll('[contenteditable]'));
             //                console.dirxml('event.target', event.target);
             //                console.dirxml('event.relatedTarget', event.relatedTarget);
@@ -87,11 +95,10 @@
                                     }
                                 });
                             } else {
-                                        toast("autosave temporarily disabled because input has " + text.length 
-                                        + " characters while autosave data has " + autosaveValue.length + " (" + (text.length - autosaveValue.length) + "characters)");
-//                                 || window.confirm("text shrunk from " + autosaveValue.length + " to " + text.length 
-//                                 + " characters" + "\n\nOverwrite autosave\n\n'" + autosaveValue + "'\n\n with new, shorter content?")
-                                }
+                                toast("autosave temporarily disabled because input has " + text.length + " characters while autosave data has " + autosaveValue.length + " (" + (text.length - autosaveValue.length) + "characters)");
+                                //                                 || window.confirm("text shrunk from " + autosaveValue.length + " to " + text.length 
+                                //                                 + " characters" + "\n\nOverwrite autosave\n\n'" + autosaveValue + "'\n\n with new, shorter content?")
+                            }
                         }
                     });
                     console.log("clearing auto-save timeout for", thisAutosaveTimer);
@@ -132,19 +139,12 @@
         }
     }
     window.addEventListener('keypress', autosaveEventHandler, false);
-    var iframeNodeList = document.querySelectorAll('iframe[src]');
-    for (i = 0; i < iframeNodeList.length; i++) {
-        var cw = iframeNodeList[i].contentWindow;
-        if (cw) {
-//            cw.addEventListener('keypress', autosaveEventHandler, false);
-        }
-    }
     console.timeEnd("autosave.js loading takes");
     console.log("autosave.js is loaded at", (new Date()).toJSON());
 })();
-document.onreadystatechange = function(evt) {
-    if (evt.target.readyState !== "complete") {
-        return;
-    }
-    console.log((new Date(event.eventtime)).toJSON(), event.type)
-}
+//document.onreadystatechange = function(evt) {
+//    if (evt.target.readyState !== "complete") {
+//        return;
+//    }
+//    console.log((new Date(event.eventtime)).toJSON(), event.type)
+//}

@@ -43,8 +43,24 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: captureVisibleTabId,
                     type: "normal",
-                    title: "Capture Visible Tab                    " + autosaveCommmandMap["capture-tab"] ,
+                    title: "Capture Visible Tab                        " + autosaveCommmandMap["capture-tab"] ,
                     contexts: ["editable"]
+                }, function() {
+                    if (chrome.extension.lastError) {
+                        console.log("lastError:" + chrome.extension.lastError.message);
+                    }
+                });
+            }
+        });
+        var manageExtensionId = "manageExtensionId";
+        chrome.contextMenus.update(manageExtensionId, {}, function() {
+            if (chrome.extension.lastError) {
+                console.log("lastError:" + chrome.extension.lastError.message);
+                chrome.contextMenus.create({
+                    id: manageExtensionId,
+                    type: "normal",
+                    title: "Manage Autosave Text Extension" ,
+                    contexts: ["all"]
                 }, function() {
                     if (chrome.extension.lastError) {
                         console.log("lastError:" + chrome.extension.lastError.message);
@@ -91,6 +107,28 @@ console.log("autosave_bg.js loads into", location.href);
                 window.open(dataUrl);
             });
         }
+        var manageExtension = function(tab) {
+            var manageURL = "chrome://extensions/" + chrome.app.getDetails().id;
+            chrome.tabs.query({
+                url: manageURL
+            }, function(tabArray) {
+                console.log("chrome.tabs.query callback gets", tabArray);
+                if (tabArray.length === 1) {
+                    chrome.tabs.update(tabArray[0].id, {
+                        active: true,
+                        openerTabId: tab.id
+                    });
+                } else {
+                    chrome.tabs.create({
+                        url: manageURL,
+                        active: true,
+                        openerTabId: tab.id
+                    }, function(tabArray) {
+                        console.log("chrome.tabs.create callback gets", tabArray);
+                    });
+                }
+            });
+        }
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
             chrome.storage.sync.getBytesInUse(null, function(bytesUsed) {
                 console.log('bytesUsed', bytesUsed);
@@ -128,6 +166,11 @@ console.log("autosave_bg.js loads into", location.href);
                         captureVisibleTab(tab);
                         break;
                     }
+                case manageExtensionId:
+                    {
+                        manageExtension(tab);
+                        break;
+                    }
             }
         });
         //        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -151,10 +194,11 @@ console.log("autosave_bg.js loads into", location.href);
             console.log('onCommand event received for message: ', command);
             chrome.tabs.query({
                 active: true,
+                currentWindow: true,
                 highlighted: true
             }, function(tabArray) {
                 console.log("chrome.tabs.query callback gets", tabArray);
-                if (tabArray.length > 0) {
+                if (tabArray.length === 1) {
                     switch (command) {
                         case "review-autosaves":
                             {

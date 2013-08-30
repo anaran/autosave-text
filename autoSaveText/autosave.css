@@ -6,7 +6,7 @@
     }*/
 
 .autosave_options {
-    background: linear-gradient(to right, white, gray 5em , black 10em);
+    background: linear-gradient(to right, white, black 4em , black 4.5em , white 10em);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
     transition-property: background;
