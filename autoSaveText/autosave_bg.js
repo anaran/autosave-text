@@ -3,6 +3,14 @@ console.log("autosave_bg.js loads into", location.href);
 
 (function() {
     try {
+        var autosaveCommmandMap = {};
+    chrome.commands.getAll(function (commands) {
+        commands.forEach(function(value, index, object) {
+        autosaveCommmandMap[value.name] = value.shortcut;
+            });
+        });
+        
+        
         // TODO Please note we first try a dummpy update of the menu be ID.
         // IF that fails, we probably have to create it.
         // Here is proof:
@@ -19,7 +27,7 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: reviewAllAutsosavesId,
                     type: "normal",
-                    title: "Review all Autosaves",
+                    title: "Review all Autosaves                 " + autosaveCommmandMap["review-autosaves"] ,
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
@@ -35,27 +43,12 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: captureVisibleTabId,
                     type: "normal",
-                    title: "Capture Visible Tab",
+                    title: "Capture Visible Tab                    " + autosaveCommmandMap["capture-tab"] ,
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
                         console.log("lastError:" + chrome.extension.lastError.message);
                     }
-                });
-            }
-        });
-
-        chrome.storage.sync.get(null, function(items) {
-            if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message, items);
-            } else {
-                console.log(items);
-                // TODO this includes other autosave settings like timeout, possible future disable on shrink parameter.
-                var count = Object.getOwnPropertyNames(items).filter(function(key) {
-                    return key.match(/^autosave,text,/);
-                }).length;
-                chrome.contextMenus.update(reviewAllAutsosavesId, {
-                    title: "Review all " + count + " Autosaves"
                 });
             }
         });
@@ -102,10 +95,32 @@ console.log("autosave_bg.js loads into", location.href);
             chrome.storage.sync.getBytesInUse(null, function(bytesUsed) {
                 console.log('bytesUsed', bytesUsed);
             });
+        autosaveCommmandMap = {};
+    chrome.commands.getAll(function (commands) {
+        commands.forEach(function(value, index, object) {
+        autosaveCommmandMap[value.name] = value.shortcut;
+            });
+        });
             switch (info.menuItemId) {
                 case reviewAllAutsosavesId:
                     {
-                        reviewAllAutsosaves(tab);
+                        chrome.storage.sync.get(null, function(items) {
+                            if (chrome.runtime.lastError) {
+                                console.log(chrome.runtime.lastError.message, items);
+                                toast(chrome.runtime.lastError.message);
+                            } else {
+                                console.log(items);
+                                // TODO this includes other autosave settings like timeout, possible future disable on shrink parameter.
+                                var count = Object.getOwnPropertyNames(items).filter(function(key) {
+                                    return key.match(/^autosave,text,/);
+                                }).length;
+                                chrome.contextMenus.update(reviewAllAutsosavesId, {
+                                    title: "Review all " + count + " Autosaves                 " + autosaveCommmandMap["review-autosaves"] 
+                                });
+//                                toast("Review all " + count + " Autosaves");
+                                reviewAllAutsosaves(tab);
+                            }
+                        });
                         break;
                     }
                 case captureVisibleTabId:
@@ -140,21 +155,21 @@ console.log("autosave_bg.js loads into", location.href);
             }, function(tabArray) {
                 console.log("chrome.tabs.query callback gets", tabArray);
                 if (tabArray.length > 0) {
-                switch (command) {
-                    case "review-autosaves":
-                        {
-                            reviewAllAutsosaves(tabArray[0]);
-                            break;
-                        }
-                    case "capture-tab":
-                        {
-                            captureVisibleTab(tabArray[0]);
-                            break;
-                        }
-                }
-                } else {
-//                console.log("chrome.tabs.query callback gets", tabArray);
+                    switch (command) {
+                        case "review-autosaves":
+                            {
+                                reviewAllAutsosaves(tabArray[0]);
+                                break;
+                            }
+                        case "capture-tab":
+                            {
+                                captureVisibleTab(tabArray[0]);
+                                break;
+                            }
                     }
+                } else {
+                    //                console.log("chrome.tabs.query callback gets", tabArray);
+                }
             });
         });
     } catch (exception) {

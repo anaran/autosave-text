@@ -6,10 +6,19 @@
     }*/
 
 .autosave_options {
-    /*background: linear-gradient(to right, white, black 4em, white 5em, black 6em, white 10em);*/
-    /*background: linear-gradient(to right, white 4em, black 5em, white 6em);*/
-    /*background: linear-gradient(to right, black, white 5em, black 10em);*/
-    background: linear-gradient(to bottom, black, black 15% , white);
+    background: linear-gradient(to right, white, gray 5em , black 10em);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+    }
+
+.autosave_logo_options {
+        display: none;
+    background: linear-gradient(to right, white, black 1em);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
     transition-property: background;
     transition-duration: 1s;
     transition-timing-function: ease-out;
@@ -31,42 +40,44 @@ section.anchor {
 	top:0;
 	background: white;
 	width: 100%;
-	opacity: 0.98;
+	/*opacity: 0.98;*/
 	}
 
-p+p.tooltip_timeout {
+span+p.tooltip_timeout {
   	margin: 0.5em;
-    position: absolute;
+    position: fixed;
         display: none;
      border-radius: 0.5em;
     padding: 0.5em;
     background-color: gray;
     color: white;
+	opacity: 0.8;
 }
 
-p:active+p.tooltip_timeout {
+span:active+p.tooltip_timeout {
     display: inline-block;
 }
 
-p:hover+p.tooltip_timeout {
+span:hover+p.tooltip_timeout {
     display: inline-block;
 }
 
-p+p.tooltip_disable {
+span+p.tooltip_disable {
   	margin: 0.5em;
-    position: absolute;
+    position: fixed;
         display: none;
      border-radius: 0.5em;
     padding: 0.5em;
     background-color: gray;
     color: white;
+	opacity: 0.8;
 }
 
-p:active+p.tooltip_disable {
+span:active+p.tooltip_disable {
     display: inline-block;
 }
 
-p:hover+p.tooltip_disable {
+span:hover+p.tooltip_disable {
     display: inline-block;
 }
 
@@ -120,7 +131,7 @@ p:hover+p.tooltip_disable {
 	
 .autosaves {
   	position: relative;
-  	top: 14em;
+  	top: 9em;
   	padding: 0.1em;
  display: inline-flex;
  flex-flow: row wrap;
