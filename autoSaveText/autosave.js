@@ -6,28 +6,39 @@
     try {
         console.time("autosave.js loading takes");
         console.log("autosave.js loads into", location.href);
+        var getOrSetSyncKey = function(key, value) {
+            chrome.storage.sync.get(key, function(items) {
+                if (chrome.runtime.lastError) {
+                    console.log(chrome.runtime.lastError.message + " " + key);
+                }
+                if (items[key]) {
+                    return items[key];
+                } else {
+                    console.log(key + " not found in chrome.storage.sync,  setting to " + value);
+                    toast(key + " not found in chrome.storage.sync, setting to " + value);
+                    var newSyncItem = {};
+                    newSyncItem[key] = value;
+                    chrome.storage.sync.set(newSyncItem, function() {
+                        if (chrome.runtime.lastError) {
+                            console.log(chrome.runtime.lastError.message + " " + key);
+                            toast(chrome.runtime.lastError.message + " " + key);
+                        } else {
+                            toast("review initial value of " + key + " in options page");
+                        }
+                    });
+                    return value;
+                }
+            });
+        };
         var autosaveTimeoutKey = "autosave,timeout";
         // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
-        var autosaveTimeoutSeconds = 3;
-        chrome.storage.sync.get(autosaveTimeoutKey, function(items) {
-            if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message);
-                console.log("autosaveTimeoutSeconds not found in chrome.storage.sync, using", autosaveTimeoutSeconds);
-            } else {
-                autosaveTimeoutSeconds = items[autosaveTimeoutKey];
-            }
-        });
+        var autosaveTimeoutSeconds = getOrSetSyncKey(autosaveTimeoutKey, 3);
         var disableLossKey = "autosave,disable,loss";
         // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
-        var disableLossMaximum = 10;
-        chrome.storage.sync.get(disableLossKey, function(items) {
-            if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message);
-                console.log("disableLossKey not found in chrome.storage.sync, using", disableLossMaximum);
-            } else {
-                disableLossMaximum = items[disableLossKey];
-            }
-        });
+        var disableLossMaximum = getOrSetSyncKey(disableLossKey, 10);
+        var minimumLengthKey = "autosave,minimum,length";
+        // TODO Please note this hard-coded default is a last resort when no value has ever been set via the options page UI.
+        var minimumLength = getOrSetSyncKey(minimumLengthKey, 8);
         // TODO Please note: Forgetting the event argument here causes nasty bug of document.event being used!
         var autosaveEventHandler = function(event) { //$NON-NLS-0$
             try {
@@ -37,12 +48,12 @@
                 // console._commandLineAPI.inspect(event.target);
                 // TODO Please note Don't autosave password type            
                 //                if (event.target.localName.toLowerCase() === 'input' && event.target.getAttribute('type') && event.target.getAttribute('type').toLowerCase() === 'password') {
-                //                    console.log("not recording this for your protection", event.target);
+                //                    console.log("not recording this for your protection" + event.target);
                 //                    toast("not recording this password for your protection");
                 //                    return;
                 //                }
                 //                if (!event.target.isContentEditable && event.target.localName.toLowerCase() !== 'input') {
-                //                    console.log("not recording this because it takes no input", event.target);
+                //                    console.log("not recording this because it takes no input" + event.target);
                 //                    toast("not recording this " + event.target.localName + "because it takes no input");
                 //                    return;
                 //                }
@@ -85,30 +96,36 @@
                     autosave: function() {
                         var thisAutosaveTimer = this;
                         chrome.storage.sync.get(thisAutosaveTimer.autosaveKey, function(items) {
-                            if (chrome.runtime.lastError) {
-                                console.log(chrome.runtime.lastError.message, items);
-                                toast(chrome.runtime.lastError.message);
-                            } else {
-                                //                                console.log(items);
-                                var text = thisAutosaveTimer.autosaveElement.innerText || thisAutosaveTimer.autosaveElement.value;
-                                var key = thisAutosaveTimer.autosaveKey;
-                                var autosaveValue = items[key];
-                                if (autosaveValue === undefined || (autosaveValue.length - text.length) <= disableLossMaximum) {
-                                    var item = {};
-                                    item[key] = text;
-                                    chrome.storage.sync.set(item, function() {
-                                        if (chrome.runtime.lastError) {
-                                            console.log(chrome.runtime.lastError.message, item);
-                                            toast(chrome.runtime.lastError.message);
-                                        } else {
-                                            toast("autosaved " + text.length + " characters");
-                                        }
-                                    });
+                            try {
+                                if (chrome.runtime.lastError) {
+                                    console.log(chrome.runtime.lastError.message, items);
+                                    toast(chrome.runtime.lastError.message);
                                 } else {
-                                    toast("autosave temporarily disabled because input has " + text.length + " characters while autosave data has " + autosaveValue.length + " (" + (text.length - autosaveValue.length) + "characters)");
-                                    //                                 || window.confirm("text shrunk from " + autosaveValue.length + " to " + text.length 
-                                    //                                 + " characters" + "\n\nOverwrite autosave\n\n'" + autosaveValue + "'\n\n with new, shorter content?")
+                                    //                                console.log(items);
+                                    var text = thisAutosaveTimer.autosaveElement.innerText || thisAutosaveTimer.autosaveElement.value;
+                                    var key = thisAutosaveTimer.autosaveKey;
+                                    var autosaveValue = items[key];
+                                    if (text.length >= minimumLength && autosaveValue === undefined || autosaveValue !== undefined && (autosaveValue.length - text.length) <= disableLossMaximum) {
+                                        var item = {};
+                                        item[key] = text;
+                                        chrome.storage.sync.set(item, function() {
+                                            if (chrome.runtime.lastError) {
+                                                console.log(chrome.runtime.lastError.message, item);
+                                                toast(chrome.runtime.lastError.message);
+                                            } else {
+                                                toast("autosaved " + text.length + " characters");
+                                            }
+                                        });
+                                    } else {
+                                        if (autosaveValue !== undefined && (autosaveValue.length - text.length) > disableLossMaximum) {
+                                            toast("autosave temporarily disabled because input has " + text.length + " characters while autosave data has " + autosaveValue.length + " (" + (text.length - autosaveValue.length) + "characters)");
+                                        }
+                                    }
                                 }
+                            } catch (exception) {
+                                window.alert('exception.stack: ' + exception.stack);
+                                toast('exception.stack: ' + exception.stack);
+                                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
                             }
                         });
                         console.log("clearing auto-save timeout for", thisAutosaveTimer);
@@ -150,25 +167,25 @@
         }
         //        var readWriteNodeList = document.querySelectorAll('*:read-write');
         //
-//                function filteredArrayFromNodeList(nl, filter) {
-//                    for (var i = 0, len = nl.length, a = [];i < len;  i++) {
-//                        if (filter(nl[i], i, nl)) {
-//                            a.push(nl[i]);
-//                        }
-//                    }
-//                    return a;
-//                }
-//        var filteredReadWriteArray = filteredArrayFromNodeList(readWriteNodeList, function(value, index, object) {
-//            if (value.getAttribute('type') && value.getAttribute('type').toLowerCase() !== 'password') {
-//                console.log(value);
-//                //                        console.log(value.getAttribute('size'));
-//                //                        console.log(value.getAttribute('maxlength'));
-//                value.addEventListener('keypress', autosaveEventHandler, false);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        });
+        //                function filteredArrayFromNodeList(nl, filter) {
+        //                    for (var i = 0, len = nl.length, a = [];i < len;  i++) {
+        //                        if (filter(nl[i], i, nl)) {
+        //                            a.push(nl[i]);
+        //                        }
+        //                    }
+        //                    return a;
+        //                }
+        //        var filteredReadWriteArray = filteredArrayFromNodeList(readWriteNodeList, function(value, index, object) {
+        //            if (value.getAttribute('type') && value.getAttribute('type').toLowerCase() !== 'password') {
+        //                console.log(value);
+        //                //                        console.log(value.getAttribute('size'));
+        //                //                        console.log(value.getAttribute('maxlength'));
+        //                value.addEventListener('keypress', autosaveEventHandler, false);
+        //                return true;
+        //            } else {
+        //                return false;
+        //            }
+        //        });
         //        console.log(filteredReadWriteArray);
         var filter = function(value, index, object) {
             console.log(value);
@@ -178,23 +195,23 @@
                     value.addEventListener('keypress', autosaveEventHandler, false);
                 }
                 return true;
-//            } else {
-//                var readWriteNodeList = value.querySelectorAll('*:read-write');
-//                console.log("readWriteNodeList", readWriteNodeList);
-//                return false;
+                //            } else {
+                //                var readWriteNodeList = value.querySelectorAll('*:read-write');
+                //                console.log("readWriteNodeList", readWriteNodeList);
+                //                return false;
             }
         };
         window.addEventListener('keypress', function(event) {
             console.log(event.target);
             if (filter(event.target)) {}
         }, false);
-//        var iframes = document.querySelectorAll('iframe');
-//        filteredArrayFromNodeList(iframes, function(value, index, object) {
-//            value.contentWindow.addEventListener('click', function(event) {
-//                console.log(event.target);
-//                if (filter(event.target)) {}
-//            }, false);
-//        });
+        //        var iframes = document.querySelectorAll('iframe');
+        //        filteredArrayFromNodeList(iframes, function(value, index, object) {
+        //            value.contentWindow.addEventListener('click', function(event) {
+        //                console.log(event.target);
+        //                if (filter(event.target)) {}
+        //            }, false);
+        //        });
         console.timeEnd("autosave.js loading takes");
         console.log("autosave.js is loaded at", (new Date()).toJSON());
     } catch (exception) {
