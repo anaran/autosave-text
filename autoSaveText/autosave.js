@@ -1,5 +1,7 @@
 // Broken keys in canary Aura: {}[]\~@€µ
 // Broken keys on Kuckuck: <>|
+// Remove single line comments in Eclipse Orion:
+// From:\n//.+(\s+)To:$1
 (function() {
     try {
         console.time("autosave.js loading takes");

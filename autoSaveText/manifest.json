@@ -1,14 +1,13 @@
 {
+    "manifest_version": 2,
     "name": "Autosave Text",
-        "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
-        "version": "1",
-	"icons": {
-//		"16": "autosave16x16.png",
+    "version": "1",
+    "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
+	"icons": {
 		"48": "autosave48x48.png",
 		"128": "autosave2_128x128.png"
 	},
-    "web_accessible_resources": [
-//		"autosave16x16.png",
+    "web_accessible_resources": [
 		"autosave48x48.png",
 		"autosave2_128x128.png"
     ],
@@ -24,18 +23,14 @@
     },
         "commands": {
         "review-autosaves": {
-            "suggested_key": {
-//                "default": "Alt+Shift+A",
-                "windows": "Alt+Shift+A"
-//                ,                    "mac": "Alt+MacCtrl+A"
+            "suggested_key": {
+                "windows": "Alt+Shift+A"
             },
                 "description": "Send a 'review-autosaves' event to the extension"
         },
             "capture-tab": {
-            "suggested_key": {
-//                "default": "Alt+Shift+C",
-                "windows": "Alt+Shift+C"
-//                ,                    "mac": "Alt+MacCtrl+C"
+            "suggested_key": {
+                "windows": "Alt+Shift+C"
             },
                 "description": "Send a 'capture-tab' event to the extension"
         }
@@ -50,6 +45,4 @@
             "css": [
             "autosave.css"]
     }],
-        "options_page": "options.html",
-        "manifest_version": 2
-}
+        "options_page": "options.html"}
