@@ -43,7 +43,7 @@ console.log("autosave_bg.js loads into", location.href);
                 chrome.contextMenus.create({
                     id: captureVisibleTabId,
                     type: "normal",
-                    title: "Capture Visible Tab                        " + autosaveCommmandMap["capture-tab"] ,
+                    title: "Capture Visible Tab                    " + autosaveCommmandMap["capture-tab"] ,
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
@@ -153,7 +153,7 @@ console.log("autosave_bg.js loads into", location.href);
                                     return key.match(/^autosave,text,/);
                                 }).length;
                                 chrome.contextMenus.update(reviewAllAutsosavesId, {
-                                    title: "Review all " + count + " Autosaves                 " + autosaveCommmandMap["review-autosaves"] 
+                                    title: "Review all " + count + " Autosaves              " + autosaveCommmandMap["review-autosaves"] 
                                 });
 //                                toast("Review all " + count + " Autosaves");
                                 reviewAllAutsosaves(tab);

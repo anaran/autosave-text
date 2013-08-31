@@ -31,7 +31,7 @@
     padding: 0.5em;
     background-color: gray;
     color: white;
-    font-size: smaller;
+    font-size: small;
 	opacity: 0.5;
   }
 
@@ -81,6 +81,25 @@ span:hover+p.tooltip_disable {
     display: inline-block;
 }
 
+span+p.tooltip_minimum {
+  	margin: 0.5em;
+    position: fixed;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+	opacity: 0.8;
+}
+
+span:active+p.tooltip_minimum {
+    display: inline-block;
+}
+
+span:hover+p.tooltip_minimum {
+    display: inline-block;
+}
+
 .delete_selected {
     width: 16em;
 }
@@ -90,29 +109,31 @@ span:hover+p.tooltip_disable {
 	}
 
 .autosave_header {
-	font-size: smaller;
+	font-size: small;
 	background: black;
 	color: white;
 	}
 	
 .autosave {
-     border-radius: 0.5em;
+     /*border-radius: 0.5em;*/
 	/*background: lightblue;*/
-  	border: 1em solid white;
+  	border: 1em solid transparent;
+  	/*margin: 0;*/
 	max-width: 30%;
-	resize: both;
+	/*resize: both;*/
 	}
 
  .autosave_text:not(focus) {
 	background: white;
 	/*background: transparent;*/
 	color: black;
+ 	display: block;
   	border: 1px dashed;
  	white-space: normal;
- 	display: inline-block;
 	min-height: 1em;
 	max-height: 3em;
 	overflow: hidden;
+	/*resize: both;*/
 	/*opacity: 0.5;*/
   }
 
@@ -123,12 +144,17 @@ span:hover+p.tooltip_disable {
 	/*background: transparent;*/
 	background: white;
 	color: black;
+ 	display: inline-block;
+ 	/*float: left;*/
+ /*position: absolute;
+ left: 0;*/
 	font-size: medium;
  	white-space: pre;
 	padding-top: 3em;
 	/*border-top: 3em solid gray;*/
 	max-height: none;
 	max-width: none;
+	/*max-width: 30%;*/
 	overflow: hidden;
 	/*opacity: 0.98;*/
  }
@@ -137,9 +163,10 @@ span:hover+p.tooltip_disable {
   	position: relative;
   	top: 9em;
   	padding: 0.1em;
- display: inline-flex;
+ display: flex;
  flex-flow: row wrap;
   justify-content: flex-start;
+	/*max-width: 30%;*/
   overflow: auto;
  }
 
