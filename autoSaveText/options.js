@@ -140,6 +140,22 @@ document.onreadystatechange = function(event) {
                                 startDateTime.innerText = value;
                             }
                             var autosaveText = autosave.querySelector('.autosave_text');
+                            autosaveText.addEventListener('cut', function(event) {
+                                if (event.preventDefault) {
+                                    event.preventDefault();
+                                }
+                            }, false && "useCapture");
+                            autosaveText.addEventListener('keydown', function(event) {
+                                console.log(event);
+                                // TODO Only allow Ctrl+A and Ctrl+C. Ctrl+X would not harm since we prevent the cut event already.
+                                if (["Up", "Down", "Left", "Right"].some(function(value) {
+                                    return value === event.keyIdentifier;
+                                }) || event.ctrlKey && String.fromCharCode(event.keyCode).match(/[AC]/)) {} else {
+                                    if (event.preventDefault) {
+                                        event.preventDefault();
+                                    }
+                                }
+                            }, false && "useCapture");
                             autosaveText.innerText = items[value];
                             autosaves.appendChild(autosave);
                         });
