@@ -103,11 +103,13 @@
                                 } else {
                                     //                                console.log(items);
                                     var text = thisAutosaveTimer.autosaveElement.innerText || thisAutosaveTimer.autosaveElement.value;
+                                    var uri = location.href;
+//                                    var uri = thisAutosaveTimer.autosaveElement.baseURI;
                                     var key = thisAutosaveTimer.autosaveKey;
                                     var autosaveValue = items[key];
                                     if (text.length >= Settings[minimumLengthKey] && autosaveValue === undefined || autosaveValue !== undefined && (autosaveValue.length - text.length) <= Settings[disableLossMaximumKey]) {
                                         var item = {};
-                                        item[key] = text;
+                                        item[key] = [ text, uri ];
                                         chrome.storage.sync.set(item, function() {
                                             if (chrome.runtime.lastError) {
                                                 console.log(chrome.runtime.lastError.message, item);

@@ -4,11 +4,88 @@ document.onreadystatechange = function(event) {
             return;
         }
         (function() {
+            function getDownloadFileName() {
+                var abbrevCount;
+                try {
+                    //		var arrayLength = JSON.parse(localStorage.map).length;
+                    //		if (arrayLength % 2) {
+                    //			chrome.extension.getBackgroundPage().alert(chrome.i18n.getMessage("odd_map_array_length") + arrayLength);
+                    //		}
+                    //		abbrevCount = arrayLength / 2;
+                } catch (e) {}
+                var d = new Date();
+                var fileName = 'autosave-text-'; //$NON-NLS-0$
+                fileName += d.getFullYear();
+                var month = d.getMonth() + 1;
+                fileName += "-" + ((month < 10) ? "0" + month : month); //$NON-NLS-0$ //$NON-NLS-1$
+                //	TODO getDay() returns the day of week,
+                //	see http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.5.16
+                var day = d.getDate();
+                fileName += "-" + ((day < 10) ? "0" + day : day); //$NON-NLS-0$ //$NON-NLS-1$
+                var hours = d.getHours();
+                fileName += "T" + ((hours < 10) ? "0" + hours : hours); //$NON-NLS-0$ //$NON-NLS-1$
+                var minutes = d.getMinutes();
+                fileName += ((minutes < 10) ? "0" + minutes : minutes); //$NON-NLS-0$
+                var seconds = d.getSeconds();
+                fileName += ((seconds < 10) ? "0" + seconds : seconds); //$NON-NLS-0$
+                var timeZoneOffset = -d.getTimezoneOffset();
+                var offsetMinutes = timeZoneOffset % 60;
+                var offsetHours = (timeZoneOffset - offsetMinutes) / 60;
+                fileName += (offsetHours > 0 ? "+" : "") + ((offsetHours < 10) ? "0" + offsetHours : offsetHours) + ((offsetMinutes < 10) ? "0" + offsetMinutes : offsetMinutes); //$NON-NLS-0$ //$NON-NLS-2$ //$NON-NLS-1$
+                fileName += '.txt'; //$NON-NLS-0$
+                return fileName;
+            }
             chrome.storage.sync.get(null, function(items) {
                 try {
                     if (chrome.runtime.lastError) {
                         console.log(chrome.runtime.lastError.message);
                     } else {
+                        var exportLinkElement = document.querySelector('.export_link');
+                        var exportElement = document.querySelector('.export');
+                        exportElement.addEventListener('click', function(event) {
+                            var blob = new window.Blob([JSON.stringify(items)], {
+                                "type": 'text/plain' //$NON-NLS-1$ //$NON-NLS-0$
+                            });
+                            exportLinkElement.href = URL.createObjectURL(blob);
+                            exportLinkElement.download = getDownloadFileName();
+                            exportLinkElement.click();
+                        }, false);
+
+                        function errorHandler(domError) {
+                            console.log(domError);
+                            toast(domError);
+                        }
+                        var readFileUpdateUI = function(file /*, element, nameElement*/ ) {
+                            var reader = new FileReader();
+                            reader.onerror = errorHandler;
+                            reader.onload = function(writeEvent) {
+                                console.timeEnd('read of ' + file.name);
+                                var result = writeEvent.target.result;
+                                var resultItems = JSON.parse(result);
+                                var count = Object.getOwnPropertyNames(resultItems).length;
+                                chrome.storage.sync.set(resultItems, function() {
+                                    if (chrome.runtime.lastError) {
+                                        toast(chrome.runtime.lastError.message);
+                                    } else {
+                                        toast((new Date()).toJSON() + " synced " + count + " imported items to storage");
+                                    }
+                                });
+                                //                                console.log(result);
+                            };
+                            console.time('read of ' + file.name);
+                            reader.readAsText(file);
+                        };
+                        var importElement = document.querySelector('.import');
+                        var importFileElement = document.querySelector('.import_file');
+                        importFileElement.addEventListener('change', function(event) {
+                            console.log(event.target.files);
+                            if (event.target.files.length === 1) {
+                                readFileUpdateUI(event.target.files[0] /*, mod, modFileName*/ );
+                            }
+                        }, false);
+                        importElement.addEventListener('click', function(event) {
+                            importFileElement.click();
+                        }, false);
                         var selectAll = document.querySelector('.select_all');
                         var deleteSelectedElement = document.querySelector('.delete_selected');
                         selectAll.addEventListener('change', function(event) {
@@ -38,7 +115,7 @@ document.onreadystatechange = function(event) {
                                 }
                             });
                         }, false);
-                        var propsAllArray = Object.getOwnPropertyNames(items).sort();;
+                        var propsAllArray = Object.getOwnPropertyNames(items).sort().reverse();
                         var propsAutosavesArray = propsAllArray.filter(function(key) {
                             return key.match(/^autosave,text,/);
                         });
@@ -72,6 +149,8 @@ document.onreadystatechange = function(event) {
                                 }
                             });
                         }, false);
+                        var autosaveVersionElement = document.querySelector('.version');
+                        autosaveVersionElement.innerText = "Version " + chrome.app.getDetails().version;
                         var autosaveTimeoutElement = document.querySelector('.timeout');
                         var timeoutKey = "autosave,timeout";
                         autosaveTimeoutElement.value = items[timeoutKey];
@@ -140,6 +219,7 @@ document.onreadystatechange = function(event) {
                                 startDateTime.innerText = value;
                             }
                             var autosaveText = autosave.querySelector('.autosave_text');
+                            var autosaveFooterLink = autosave.querySelector('.autosave_footer_link');
                             autosaveText.addEventListener('cut', function(event) {
                                 if (event.preventDefault) {
                                     event.preventDefault();
@@ -156,7 +236,13 @@ document.onreadystatechange = function(event) {
                                     }
                                 }
                             }, false && "useCapture");
-                            autosaveText.innerText = items[value];
+                            if (items[value] instanceof Array) {
+                                autosaveText.innerText = items[value][0];
+                                autosaveFooterLink.href = items[value][1];
+                                autosaveFooterLink.innerText = items[value][1];
+                            } else {
+                                autosaveText.innerText = items[value];
+                            }
                             autosaves.appendChild(autosave);
                         });
                         var selectedCount = document.querySelectorAll('.select_one:checked').length;

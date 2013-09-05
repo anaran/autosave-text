@@ -16,6 +16,16 @@ type password.
 
 Images for Chrome Web Store
 
+See images alongside this README.txt file.
+
+CWS Problems
+
+See
+http://code.google.com/p/chromium/issues/detail?id=282760
+
+----
+Old Popchrom Information
+
 These have been reverse-engineered by downloading images of Popchrom V1.7
 (in webp format) from the CWS.
 

@@ -37,11 +37,18 @@
 
 section.anchor {
 	position: fixed;
-	top:0;
+	top: 0;
 	background: white;
 	width: 100%;
 	/*opacity: 0.98;*/
 	}
+
+.version {
+    position: fixed;
+    top: 3.5em;
+    left: 1em;
+	font-size: small;
+    }
 
 span+p.tooltip_timeout {
   	margin: 0.5em;
@@ -104,6 +111,52 @@ span:hover+p.tooltip_minimum {
     width: 16em;
 }
 
+.export+p.tooltip_export {
+  	margin: 0.5em;
+    position: fixed;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+	opacity: 0.8;
+}
+
+.export:active+p.tooltip_export {
+    display: inline-block;
+}
+
+.export:hover+p.tooltip_export {
+    display: inline-block;
+}
+
+.export_link {
+    display: none;
+}
+
+.import_file{
+    display: none;
+}
+
+.import+p.tooltip_import {
+  	margin: 0.5em;
+    position: fixed;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+	opacity: 0.8;
+}
+
+.import:active+p.tooltip_import {
+    display: inline-block;
+}
+
+.import:hover+p.tooltip_import {
+    display: inline-block;
+}
+
 .autosave_template {
 	display: none;
 	}
@@ -113,7 +166,14 @@ span:hover+p.tooltip_minimum {
 	background: black;
 	color: white;
 	}
-	
+
+.autosave_footer {
+	font-size: small;
+	background: white;
+	color: black;
+	overflow: hidden;
+	}
+
 .autosave {
      /*border-radius: 0.5em;*/
 	/*background: lightblue;*/
@@ -161,7 +221,7 @@ span:hover+p.tooltip_minimum {
 	
 .autosaves {
   	position: relative;
-  	top: 9em;
+  	top: 11em;
   	padding: 0.1em;
  display: flex;
  flex-flow: row wrap;

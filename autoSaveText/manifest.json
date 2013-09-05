@@ -1,10 +1,9 @@
 {
     "manifest_version": 2,
     "name": "Autosave Text",
-    "version": "2",
+    "version": "4",
     "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
-	"icons": {
-		"48": "autosave48x48.png",
+	"icons": {		"48": "autosave48x48.png",
 		"128": "autosave2_128x128.png"
 	},
     "web_accessible_resources": [
@@ -23,15 +22,11 @@
     },
         "commands": {
         "review-autosaves": {
-            "suggested_key": {
-                "windows": "Alt+Shift+A"
-            },
+            "suggested_key": {                "default": "Alt+Shift+A"            },
                 "description": "Send a 'review-autosaves' event to the extension"
         },
             "capture-tab": {
-            "suggested_key": {
-                "windows": "Alt+Shift+C"
-            },
+            "suggested_key": {                "default": "Alt+Shift+C"            },
                 "description": "Send a 'capture-tab' event to the extension"
         }
     },
