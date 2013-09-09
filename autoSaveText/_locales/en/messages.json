@@ -1,0 +1,66 @@
+{
+    "autosave_options": {
+        "message": "Autosave Text Options",
+        "description": "Autosave Text Options"
+    },
+    "autosave_text": {
+        "message": "autosaved text",
+        "description": "autosaved text"
+    },
+    "delete_selected": {
+        "message": "Delete Selected",
+        "description": "Delete Selected"
+    },
+    "disable_label": {
+        "message": "Autosave Disable on Loss",
+        "description": "Autosave Disable on Loss"
+    },
+    "display_internal_label": {
+        "message": "Display internal autosave keys",
+        "description": "Display internal autosave keys"
+    },
+    "export": {
+        "message": "Export",
+        "description": "Export"
+    },
+    "import": {
+        "message": "Import",
+        "description": "Import"
+    },
+    "minimum_label": {
+        "message": "Autosave Minimum Length",
+        "description": "Autosave Minimum Length"
+    },
+    "select_all_label": {
+        "message": "Select all autosaves",
+        "description": "Select all autosaves"
+    },
+    "timeout_label": {
+        "message": "Autosave Timeout",
+        "description": "Autosave Timeout"
+    },
+    "tooltip_disable": {
+        "message": "Text will no longer be automatically saved when it shortens by more than the given number of characters from its last autosave length. Autosaving resumes when it grows within bounds again.",
+        "description": "Text will no longer be automatically saved when it shortens by more than the given number of characters from its last autosave length. Autosaving resumes when it grows within bounds again."
+    },
+    "tooltip_export": {
+        "message": "Exports all entries to a local file.",
+        "description": "Exports all entries to a local file."
+    },
+    "tooltip_import": {
+        "message": "Imports all entries from a local file.",
+        "description": "Imports all entries from a local file."
+    },
+    "tooltip_minimum": {
+        "message": "Text will only be automatically saved when it has at least the given number of characters.",
+        "description": "Text will only be automatically saved when it has at least the given number of characters."
+    },
+    "tooltip_timeout": {
+        "message": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation.",
+        "description": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation."
+    },
+    "version": {
+        "message": "Version Number",
+        "description": "Version Number"
+    }
+}

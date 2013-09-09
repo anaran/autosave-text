@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-			<span class="anchor"></span>
 	<head>
 		<meta charset=utf-8>
 		<script src="options.js"></script>
@@ -20,6 +19,7 @@
 			</div>
 			<div class="autosave_footer"><a class="autosave_footer_link"></a></div>
 		</div>
+		</div>
 	<section class="anchor">
 		<h1 class="autosave_options">Autosave Text Options</h1>
 		<div class="version">Version Number</div>
@@ -28,7 +28,7 @@
 -->
 		<span>
 <input type="number" class="timeout" min="0.5" step="0.5" max="10"/>
-<label for="timeout">Autosave Timeout</label>
+<label for="timeout" class="timeout_label">Autosave Timeout</label>
 		</span>
 		<p class="tooltip_timeout">
 			Text will be saved automatically when no changes to it are made within a
@@ -37,7 +37,7 @@
 		</p>
 		<span>
 <input type="number" class="disable" min="4" step="1" max="40"/>
-<label for="disable">Autosave Disable on Loss</label>
+<label for="disable" class="disable_label">Autosave Disable on Loss</label>
 		</span>
 		<p class="tooltip_disable">
 			Text will no longer be automatically saved when it shortens by more
@@ -46,19 +46,19 @@
 		</p>
 		<span>
 <input type="number" class="minimum" min="6" step="1" max="40"/>
-<label for="minimum">Autosave Minimum Length</label>
+<label for="minimum" class="minimum_label">Autosave Minimum Length</label>
 		</span>
 		<p class="tooltip_minimum">
 			Text will only be automatically saved when it has at least the given number of characters.
 		</p>
 		<p>
 			<input type="checkbox" class="select_all"/>
-            <label for="select_all">Select all autosaves</label>
+            <label for="select_all" class="select_all_label">Select all autosaves</label>
 			<input type="checkbox" class="display_internal"/>
-            <label for="display_internal">Display internal autosave keys</label>
+            <label for="display_internal" class="display_internal_label">Display internal autosave keys</label>
 			<input type="button" class="delete_selected" value="Delete Selected">
 		</p>
-			<a href="export_link_href_not_set" download="export_link_download_not_set" class="export_link"><a/>
+			<a href="export_link_href_not_set" download="export_link_download_not_set" class="export_link"></a>
 			<input type="button" class="export" value="Export">
 		<p class="tooltip_export">
 			Exports all entries to a local file.
