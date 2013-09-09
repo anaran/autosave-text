@@ -1,42 +1,42 @@
 {
     "autosave_options": {
-        "message": "Autosave Text Options",
+        "message": "Autosave Text Optionen",
         "description": "Autosave Text Options"
     },
     "autosave_text": {
-        "message": "autosaved text",
+        "message": "text gesichert",
         "description": "autosaved text"
     },
     "delete_selected": {
-        "message": "Delete Selected",
+        "message": "Ausgewählte löschen",
         "description": "Delete Selected"
     },
     "disable_label": {
-        "message": "Autosave Disable on Loss",
+        "message": "Autosave nach Verlust abschalten",
         "description": "Autosave Disable on Loss"
     },
     "display_internal_label": {
-        "message": "Display internal autosave keys",
+        "message": "Interne autosave keys anzeigen",
         "description": "Display internal autosave keys"
     },
     "export": {
-        "message": "Export",
+        "message": "Exportieren",
         "description": "Export"
     },
     "import": {
-        "message": "Import",
+        "message": "Importieren",
         "description": "Import"
     },
     "minimum_label": {
-        "message": "Autosave Minimum Length",
+        "message": "Autosave Minimale Länge",
         "description": "Autosave Minimum Length"
     },
     "select_all_label": {
-        "message": "Select all autosaves",
+        "message": "Alle autosaves auswählen",
         "description": "Select all autosaves"
     },
     "timeout_label": {
-        "message": "Autosave Timeout",
+        "message": "Autosave Auszeit",
         "description": "Autosave Timeout"
     },
     "tooltip_disable": {
@@ -44,11 +44,11 @@
         "description": "Text will no longer be automatically saved when it shortens by more than the given number of characters from its last autosave length. Autosaving resumes when it grows within bounds again."
     },
     "tooltip_export": {
-        "message": "Exports all entries to a local file.",
+        "message": "Alle Einträge lokal sichern.",
         "description": "Exports all entries to a local file."
     },
     "tooltip_import": {
-        "message": "Imports all entries from a local file.",
+        "message": "Alle Einträge aus lokaler Sicherungsdatei laden.",
         "description": "Imports all entries from a local file."
     },
     "tooltip_minimum": {
@@ -60,7 +60,7 @@
         "description": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation."
     },
     "version": {
-        "message": "Version Number",
+        "message": "Versionsnummer",
         "description": "Version Number"
     }
 }

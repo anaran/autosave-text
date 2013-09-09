@@ -1,4 +1,4 @@
-document.onreadystatechange = function(event) {
+document.addEventListener('readystatechange', function(event) {
     try {
         if (event.target.readyState !== "complete") {
             return;
@@ -258,4 +258,4 @@ document.onreadystatechange = function(event) {
         window.alert('exception.stack: ' + exception.stack);
         console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
     }
-}
+}, false);

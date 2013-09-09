@@ -2,6 +2,7 @@
     "manifest_version": 2,
     "name": "Autosave Text",
     "version": "4",
+    "default_locale": "de",
     "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
 	"icons": {		"48": "autosave48x48.png",
 		"128": "autosave2_128x128.png"
