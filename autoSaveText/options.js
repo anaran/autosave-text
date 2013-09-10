@@ -94,7 +94,7 @@ document.addEventListener('readystatechange', function(event) {
                                 selectOneNodeList[i].checked = event.target.checked;
                             }
                             //                        console.log('selectAll.checked', selectAll.checked);
-                            deleteSelectedElement.value = "Delete " + (event.target.checked ? selectOneNodeList.length : 0) + " Selected Autosaves";
+                            deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [(event.target.checked ? selectOneNodeList.length : 0)]);
                         }, false);
                         deleteSelectedElement.addEventListener('click', function(event) {
                             var selectOneCheckedNodeList = document.querySelectorAll('.select_one');
@@ -201,10 +201,10 @@ document.addEventListener('readystatechange', function(event) {
                                 selectOne.checked = event.target.checked;
                                 console.log('selectOne.checked', selectOne.checked);
                                 var selectedCount = document.querySelectorAll('.select_one:checked').length;
-                                deleteSelectedElement.value = "Delete " + selectedCount + " Selected Autosaves";
+                                deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectedCount]);
                             }, false);
                             var selectOneNodeList = document.querySelectorAll('.select_one');
-                            deleteSelectedElement.value = "Delete " + selectOneNodeList.length + " Selected Autosaves";
+                            deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectOneNodeList.length]);
                             selectOne.dataset.autoSave = value;
                             var startDateTime = autosave.querySelector('.autosave_start');
                             var shortKey = value.replace('autosave,text,', '');
@@ -246,7 +246,7 @@ document.addEventListener('readystatechange', function(event) {
                             autosaves.appendChild(autosave);
                         });
                         var selectedCount = document.querySelectorAll('.select_one:checked').length;
-                        deleteSelectedElement.value = "Delete " + selectedCount + " Selected Autosaves";
+                        deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectedCount]);
                     }
                 } catch (exception) {
                     window.alert('exception.stack: ' + exception.stack);
