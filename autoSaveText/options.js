@@ -150,7 +150,7 @@ document.addEventListener('readystatechange', function(event) {
                             });
                         }, false);
                         var autosaveVersionElement = document.querySelector('.version');
-                        autosaveVersionElement.innerText = "Version " + chrome.app.getDetails().version;
+                        autosaveVersionElement.innerText = chrome.i18n.getMessage('version', [chrome.app.getDetails().version]);
                         var autosaveTimeoutElement = document.querySelector('.timeout');
                         var timeoutKey = "autosave,timeout";
                         autosaveTimeoutElement.value = items[timeoutKey];
@@ -166,8 +166,8 @@ document.addEventListener('readystatechange', function(event) {
                             });
                         }, false);
                         var displayInternalElement = document.querySelector('.display_internal');
-                        var displayInternalLabelElement = document.querySelector('label[for=display_internal]');
-                        displayInternalLabelElement.innerText = "Display " + internalKeyCount + " internal autosave keys";
+                        var displayInternalLabelElement = document.querySelector('.display_internal_label');
+                        displayInternalLabelElement.innerText = chrome.i18n.getMessage('display_internal_label', [internalKeyCount]);
                         var displayInternalKey = "autosave,display,internal";
                         //        TODO Negate twice to handle undefined value as well.
                         displayInternalElement.checked = !! items[displayInternalKey];
@@ -186,7 +186,7 @@ document.addEventListener('readystatechange', function(event) {
                             });
                         }, false);
                         var selectAllLabelElement = document.querySelector('label[for=select_all]');
-                        selectAllLabelElement.innerText = "Select all " + (displayInternalElement.checked ? allKeyCount : allKeyCount - internalKeyCount) + " autosaves";
+                        selectAllLabelElement.innerText = chrome.i18n.getMessage('select_all_label', [(displayInternalElement.checked ? allKeyCount : allKeyCount - internalKeyCount)]);
                         var propsArray = displayInternalElement.checked ? propsAllArray : propsAutosavesArray;
                         var autosaves = document.querySelector('.autosaves');
                         var autosaveTemplate = autosaves.querySelector('.autosave_template');

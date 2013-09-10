@@ -8,16 +8,28 @@
         "description": "autosaved text"
     },
     "delete_selected": {
-        "message": "Ausgewählte löschen",
-        "description": "Delete Selected"
+        "message": "Ausgewählte $COUNT$ löschen",
+        "description": "Delete Selected",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Delete $COUNT$ Selected"
+            }
+        }
     },
     "disable_label": {
         "message": "Autosave nach Verlust abschalten",
         "description": "Autosave Disable on Loss"
     },
     "display_internal_label": {
-        "message": "Interne autosave keys anzeigen",
-        "description": "Display internal autosave keys"
+        "message": "Alle $COUNT$ internen autosave keys anzeigen",
+        "description": "Display internal autosave keys",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Display all $COUNT$ internal autosave settings"
+            }
+        }
     },
     "export": {
         "message": "Exportieren",
@@ -32,8 +44,14 @@
         "description": "Autosave Minimum Length"
     },
     "select_all_label": {
-        "message": "Alle autosaves auswählen",
-        "description": "Select all autosaves"
+        "message": "Alle $COUNT$ autosaves auswählen",
+        "description": "Select all autosaves",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Select all $COUNT$ autosaves"
+            }
+        }
     },
     "timeout_label": {
         "message": "Autosave Auszeit",
@@ -60,7 +78,13 @@
         "description": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation."
     },
     "version": {
-        "message": "Versionsnummer",
-        "description": "Version Number"
+        "message": "Version $Number$",
+        "description": "Version Number",
+        "placeholders": {
+            "number": {
+                "content": "$1",
+                "example": "Version $Number$"
+            }
+        }
     }
 }

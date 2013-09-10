@@ -8,16 +8,28 @@
         "description": "autosaved text"
     },
     "delete_selected": {
-        "message": "Delete Selected",
-        "description": "Delete Selected"
+        "message": "Delete $COUNT$ Selected",
+        "description": "Delete $COUNT$ Selected",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Delete $COUNT$ Selected"
+            }
+        }
     },
     "disable_label": {
         "message": "Autosave Disable on Loss",
         "description": "Autosave Disable on Loss"
     },
     "display_internal_label": {
-        "message": "Display internal autosave keys",
-        "description": "Display internal autosave keys"
+        "message": "Display all $COUNT$ internal autosave settings",
+        "description": "Display all $COUNT$ internal autosave settings",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Display all $COUNT$ internal autosave settings"
+            }
+        }
     },
     "export": {
         "message": "Export",
@@ -32,8 +44,14 @@
         "description": "Autosave Minimum Length"
     },
     "select_all_label": {
-        "message": "Select all autosaves",
-        "description": "Select all autosaves"
+        "message": "Select all $COUNT$ autosaves",
+        "description": "Select all $COUNT$ autosaves",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Select all $COUNT$ autosaves"
+            }
+        }
     },
     "timeout_label": {
         "message": "Autosave Timeout",
@@ -60,7 +78,13 @@
         "description": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation."
     },
     "version": {
-        "message": "Version Number",
-        "description": "Version Number"
+        "message": "Version $Number$",
+        "description": "Version $Number$",
+        "placeholders": {
+            "number": {
+                "content": "$1",
+                "example": "Version $Number$"
+            }
+        }
     }
 }
