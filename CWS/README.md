@@ -1,9 +1,17 @@
-CWS Updating Notes
+CWS (Chrome Web Store) Updating Notes
 ================
 
 # Update Extension Information via Dashboard
 
-## Extension Description
+## Project Summary
+
+Google Chrome extension to automatically save all editable and input text fields to sync storage, except for input type password
+
+## Extension Description from Manifest
+
+Automatically save all editable and input text fields to sync storage, except for input type password
+
+## CWS Detailed Description
 
 Text will be saved automatically when no changes to it are made
 within a timeout period in seconds.

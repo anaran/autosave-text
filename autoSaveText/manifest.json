@@ -4,7 +4,7 @@
     "version": "6",
     "minimum_chrome_version": "29.0.1521.3",
     "default_locale": "en",
-    "description": "Automatically save user text input after short timeout when user stops typing. Restore lost input via context menu.",
+    "description": "Automatically save all editable and input text fields to sync storage, except for input type password.",
 	"icons": {		"48": "autosave48x48.png",
 		"128": "autosave2_128x128.png"
 	},
