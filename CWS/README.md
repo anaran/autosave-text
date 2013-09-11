@@ -25,13 +25,13 @@ See images alongside this README.md file.
 
 ## Links
 
-`Website` `https://code.google.com/p/autosave-text`
+[Website](https://code.google.com/p/autosave-text) points to `https://code.google.com/p/autosave-text`
 
-`Send Feedback` `https://chrome.google.com/webstore/support/omgpghebcjlafeegihofjnhhmllplnie?hl=en&gl=DE`
+[Send Feedback](https://chrome.google.com/webstore/support/omgpghebcjlafeegihofjnhhmllplnie?hl=en&gl=DE) points to `https://chrome.google.com/webstore/support/omgpghebcjlafeegihofjnhhmllplnie?hl=en&gl=DE`
 
-`Support` `https://code.google.com/p/autosave-text/issues/list`
+[Support](https://code.google.com/p/autosave-text/issues/list) points to `https://code.google.com/p/autosave-text/issues/list`
 
-`Report Abuse` `https://chrome.google.com/webstore/report/omgpghebcjlafeegihofjnhhmllplnie`
+[Report Abuse](https://chrome.google.com/webstore/report/omgpghebcjlafeegihofjnhhmllplnie) points to `https://chrome.google.com/webstore/report/omgpghebcjlafeegihofjnhhmllplnie`
 
 CWS Problems
 ===========
