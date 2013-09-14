@@ -102,7 +102,7 @@
                                     toast(chrome.runtime.lastError.message);
                                 } else {
                                     //                                console.log(items);
-                                    var text = thisAutosaveTimer.autosaveElement.innerText || thisAutosaveTimer.autosaveElement.value;
+                                    var text = thisAutosaveTimer.autosaveElement.textContent || thisAutosaveTimer.autosaveElement.value;
                                     var uri = location.href;
                                     //                                    var uri = thisAutosaveTimer.autosaveElement.baseURI;
                                     var key = thisAutosaveTimer.autosaveKey;

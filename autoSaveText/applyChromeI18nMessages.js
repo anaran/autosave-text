@@ -16,7 +16,7 @@
                         var value = nds[i].getAttribute('value');
                         var key = nds[i].getAttribute('i18n-content');
                         if (value === null) {
-                            nds[i].innerText = chrome.i18n.getMessage(key);
+                            nds[i].textContent = chrome.i18n.getMessage(key);
                         } else {
                             nds[i].setAttribute('value', chrome.i18n.getMessage(key));
                         }

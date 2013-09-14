@@ -3,7 +3,7 @@ var toast = function(message) {
  	var messages =  document.querySelector('div.messages') || document.body.appendChild(document.createElement('div'));
  	messages.className = 'messages';
     myd.className = "toast";
-    myd.innerText = message;
+    myd.textContent = message;
     messages.insertBefore(myd, messages.firstChild);
     var to = setTimeout(function() {
         // myd.style.opacity = 0;

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Autosave Text",
-    "version": "6",
+    "version": "7",
     "minimum_chrome_version": "29.0.1521.3",
     "default_locale": "en",
     "description": "Automatically save all editable and input text fields to sync storage, except for input type password.",

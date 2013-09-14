@@ -150,7 +150,7 @@ document.addEventListener('readystatechange', function(event) {
                             });
                         }, false);
                         var autosaveVersionElement = document.querySelector('.version');
-                        autosaveVersionElement.innerText = chrome.i18n.getMessage('version', [chrome.app.getDetails().version]);
+                        autosaveVersionElement.textContent = chrome.i18n.getMessage('version', [chrome.app.getDetails().version]);
                         var autosaveTimeoutElement = document.querySelector('.timeout');
                         var timeoutKey = "autosave,timeout";
                         autosaveTimeoutElement.value = items[timeoutKey];
@@ -167,7 +167,7 @@ document.addEventListener('readystatechange', function(event) {
                         }, false);
                         var displayInternalElement = document.querySelector('.display_internal');
                         var displayInternalLabelElement = document.querySelector('.display_internal_label');
-                        displayInternalLabelElement.innerText = chrome.i18n.getMessage('display_internal_label', [internalKeyCount]);
+                        displayInternalLabelElement.textContent = chrome.i18n.getMessage('display_internal_label', [internalKeyCount]);
                         var displayInternalKey = "autosave,display,internal";
                         //        TODO Negate twice to handle undefined value as well.
                         displayInternalElement.checked = !! items[displayInternalKey];
@@ -186,7 +186,7 @@ document.addEventListener('readystatechange', function(event) {
                             });
                         }, false);
                         var selectAllLabelElement = document.querySelector('label[for=select_all]');
-                        selectAllLabelElement.innerText = chrome.i18n.getMessage('select_all_label', [(displayInternalElement.checked ? allKeyCount : allKeyCount - internalKeyCount)]);
+                        selectAllLabelElement.textContent = chrome.i18n.getMessage('select_all_label', [(displayInternalElement.checked ? allKeyCount : allKeyCount - internalKeyCount)]);
                         var propsArray = displayInternalElement.checked ? propsAllArray : propsAutosavesArray;
                         var autosaves = document.querySelector('.autosaves');
                         var autosaveTemplate = autosaves.querySelector('.autosave_template');
@@ -211,12 +211,12 @@ document.addEventListener('readystatechange', function(event) {
                             try {
                                 var dateTime = new Date(shortKey);
                                 if (isNaN(dateTime.getTime())) {
-                                    startDateTime.innerText = value;
+                                    startDateTime.textContent = value;
                                 } else {
-                                    startDateTime.innerText = dateTime.toString().replace(/\s*\([^)]+\)/, '');
+                                    startDateTime.textContent = dateTime.toString().replace(/\s*\([^)]+\)/, '');
                                 }
                             } catch (exception) {
-                                startDateTime.innerText = value;
+                                startDateTime.textContent = value;
                             }
                             var autosaveText = autosave.querySelector('.autosave_text');
                             var autosaveFooterLink = autosave.querySelector('.autosave_footer_link');
@@ -237,11 +237,11 @@ document.addEventListener('readystatechange', function(event) {
                                 }
                             }, false && "useCapture");
                             if (items[value] instanceof Array) {
-                                autosaveText.innerText = items[value][0];
+                                autosaveText.textContent = items[value][0];
                                 autosaveFooterLink.href = items[value][1];
-                                autosaveFooterLink.innerText = items[value][1];
+                                autosaveFooterLink.textContent = items[value][1];
                             } else {
-                                autosaveText.innerText = items[value];
+                                autosaveText.textContent = items[value];
                             }
                             autosaves.appendChild(autosave);
                         });
