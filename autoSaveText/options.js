@@ -18,7 +18,7 @@ document.addEventListener('readystatechange', function(event) {
                 fileName += d.getFullYear();
                 var month = d.getMonth() + 1;
                 fileName += "-" + ((month < 10) ? "0" + month : month); //$NON-NLS-0$ //$NON-NLS-1$
-                //	TODO getDay() returns the day of week,
+                //	TODO Please note getDay() returns the day of week,
                 //	see http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.5.16
                 var day = d.getDate();
                 fileName += "-" + ((day < 10) ? "0" + day : day); //$NON-NLS-0$ //$NON-NLS-1$
@@ -31,6 +31,7 @@ document.addEventListener('readystatechange', function(event) {
                 var timeZoneOffset = -d.getTimezoneOffset();
                 var offsetMinutes = timeZoneOffset % 60;
                 var offsetHours = (timeZoneOffset - offsetMinutes) / 60;
+                // TODO FIXME >= 0 ?
                 fileName += (offsetHours > 0 ? "+" : "") + ((offsetHours < 10) ? "0" + offsetHours : offsetHours) + ((offsetMinutes < 10) ? "0" + offsetMinutes : offsetMinutes); //$NON-NLS-0$ //$NON-NLS-2$ //$NON-NLS-1$
                 fileName += '.txt'; //$NON-NLS-0$
                 return fileName;
