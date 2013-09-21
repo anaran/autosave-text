@@ -1,10 +1,10 @@
 {
     "manifest_version": 2,
-    "name": "Autosave Text",
+    "name": "__MSG_extension_name__",
     "version": "7",
     "minimum_chrome_version": "29.0.1521.3",
     "default_locale": "en",
-    "description": "Automatically save all editable and input text fields to sync storage, except for input type password.",
+    "description": "__MSG_extension_description__",
 	"icons": {		"48": "autosave48x48.png",
 		"128": "autosave2_128x128.png"
 	},

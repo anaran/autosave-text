@@ -177,7 +177,7 @@ span:hover+p.tooltip_minimum {
 .autosave {
      /*border-radius: 0.5em;*/
 	/*background: lightblue;*/
-  	border: 1em solid transparent;
+  	border: 0.5em solid transparent;
   	/*margin: 0;*/
 	max-width: 30%;
 	/*resize: both;*/

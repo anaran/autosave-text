@@ -7,11 +7,13 @@ CWS (Chrome Web Store) Updating Notes
 
 Google Chrome extension to automatically save all editable and input text fields to sync storage, except for input type password
 
-## Extension Description from Manifest
+## Extension Description from Manifest (see extension_description in messages.json)
 
-Automatically save all editable and input text fields to sync storage, except for input type password
+Automatically save all edited and input text fields to sync storage (available in all your syncing chrome installations), except for input type password.
 
 ## CWS Detailed Description
+
+### CWS Detailed Description English
 
 Text will be saved automatically when no changes to it are made
 within a timeout period in seconds.
@@ -22,10 +24,21 @@ more than the given number of characters from its last autosave length.
 Autosaving resumes when it grows within bounds again.
 
 Text will only be automatically saved when it has at least the
-given number of characters.
+given number of characters. This avoids saving cleartext account numbers and the like.
 
-All editable and input text fields are autosaved, except for input
-type password.
+All edited and input text fields are automatically saved to sync storage (available in all your syncing chrome installations), except for input type password.
+
+### CWS Detailed Description German
+
+Text wird automatisch gesichert, wenn für eine bestimmte Dauer  (timeout in Sekunken) nicht verändert wird.
+Jede Änderung startet diese Zeitspanne erneut.
+
+Text wird nicht mehr automatisch gesichert wenn er um mehr Zeichen als vorgegeben ()  gegenüber der letzten Sicherung verkürzt wird.
+Die Sicherung beginnt erneut wenn die Textlänge diese Vorgabe wieder erfüllt.
+
+Text wird erst ab einer bestimmten Mindestlänge automatisch gesichert. Damit kann die Sicherung von im Klartext angezeigen Kundennummern und dergleichen verhindert werden.
+
+Alle Inhalte von bearbeiteten und input Text Feldern werden automatisch im sync storage (in alle deinen synchronisierten Chrome Installationen verfügbar) gespechert, außer für input type password.
 
 ## Images for Chrome Web Store
 

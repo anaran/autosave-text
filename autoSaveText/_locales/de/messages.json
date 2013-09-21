@@ -1,4 +1,12 @@
 {
+    "extension_name": {
+        "message": "Autosave Text",
+        "description": "The title of the extension, displayed in the web store."
+    },
+    "extension_description": {
+        "message": "Sichert bearbeitete Text Felder im sync storage (in synchronisierten Chrome Installationen verfügbar), außer input type password.", 
+        "description":"The description of the extension, displayed in the web store."
+    },
     "autosave_options": {
         "message": "Autosave Text Optionen",
         "description": "Autosave Text Options"

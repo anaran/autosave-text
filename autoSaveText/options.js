@@ -68,7 +68,7 @@ document.addEventListener('readystatechange', function(event) {
                                     if (chrome.runtime.lastError) {
                                         toast(chrome.runtime.lastError.message);
                                     } else {
-                                        toast((new Date()).toJSON() + " synced " + count + " imported items to storage");
+                                        toast("synced " + count + " imported items to storage");
                                     }
                                 });
                                 //                                console.log(result);
@@ -132,7 +132,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-                                    toast((new Date()).toJSON() + " saved " + disableLossKey + " value " + event.target.value);
+//                                    toast((new Date()).toJSON() + " saved " + disableLossKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -146,7 +146,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-                                    toast((new Date()).toJSON() + " saved " + minimumLengthKey + " value " + event.target.value);
+//                                    toast((new Date()).toJSON() + " saved " + minimumLengthKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -162,7 +162,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-                                    toast((new Date()).toJSON() + " saved " + timeoutKey + " value " + event.target.value);
+//                                    toast((new Date()).toJSON() + " saved " + timeoutKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -180,7 +180,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-                                    toast((new Date()).toJSON() + " saved " + displayInternalKey + " value " + item[displayInternalKey]);
+//                                    toast((new Date()).toJSON() + " saved " + displayInternalKey + " value " + item[displayInternalKey]);
                                     //                            TODO Please note the we need to reload page only when the asynchronuous sync.set calls back without failure!
                                     location.reload(true);
                                 }
@@ -214,7 +214,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (isNaN(dateTime.getTime())) {
                                     startDateTime.textContent = value;
                                 } else {
-                                    startDateTime.textContent = dateTime.toString().replace(/\s*\([^)]+\)/, '');
+                                    startDateTime.textContent = dateTime.toString().replace(/\s*\([^)]+\)/, '').replace(/\s*GMT\s*/, '');
                                 }
                             } catch (exception) {
                                 startDateTime.textContent = value;
