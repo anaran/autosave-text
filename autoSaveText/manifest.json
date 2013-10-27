@@ -5,41 +5,41 @@
     "minimum_chrome_version": "29.0.1521.3",
     "default_locale": "en",
     "description": "__MSG_extension_description__",
-	"icons": {		"48": "autosave48x48.png",
-		"128": "autosave2_128x128.png"
-	},
-    "web_accessible_resources": [
-		"autosave48x48.png",
-		"autosave2_128x128.png"
+    "icons": {        "48": "autosave48x48.png",
+        "128": "autosave2_128x128.png"
+    },
+    "web_accessible_resources": [        "autosave48x48.png",
+        "autosave2_128x128.png"
     ],
     "permissions": [
         "activeTab",
         "contextMenus",
         "storage",
         "unlimitedStorage"],
-        "background": {
+    "background": {
         "scripts": [
             "autosave_bg.js",
             "toast.js"]
     },
-        "commands": {
+    "commands": {
         "review-autosaves": {
             "suggested_key": {                "default": "Alt+Shift+A"            },
-                "description": "Send a 'review-autosaves' event to the extension"
+            "description": "Send a 'review-autosaves' event to the extension"
         },
-            "capture-tab": {
+        "capture-tab": {
             "suggested_key": {                "default": "Alt+Shift+C"            },
-                "description": "Send a 'capture-tab' event to the extension"
+            "description": "Send a 'capture-tab' event to the extension"
         }
     },
-        "content_scripts": [{
-                   "all_frames": true,
+    "content_scripts": [{
+        "all_frames": true,
         "matches": [
             "<all_urls>"],
-            "js": [
+        "js": [
             "autosave.js",
             "toast.js"],
-            "css": [
+        "css": [
             "autosave.css"]
     }],
-        "options_page": "options.html"}
+    "options_page": "options.html"
+}
