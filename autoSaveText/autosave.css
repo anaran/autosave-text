@@ -23,7 +23,7 @@
     transition-duration: 1s;
     transition-timing-function: ease-out;
     }
-    
+
 .toast {
   	margin: 0.5em;
     display: block;
@@ -157,6 +157,25 @@ span:hover+p.tooltip_minimum {
     display: inline-block;
 }
 
+.sync_status+p.tooltip_sync_status {
+  	margin: 0.5em;
+    position: fixed;
+        display: none;
+     border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: gray;
+    color: white;
+	opacity: 0.8;
+}
+
+.sync_status:active+p.tooltip_sync_status {
+    display: inline-block;
+}
+
+.sync_status:hover+p.tooltip_sync_status {
+    display: inline-block;
+}
+
 .autosave_template {
 	display: none;
 	}
@@ -199,7 +218,7 @@ span:hover+p.tooltip_minimum {
 
 /*.autosave_text:focus +  .autosave_text {
   }*/
-  
+
  .autosave_text:focus {
 	/*background: transparent;*/
 	background: white;
@@ -218,7 +237,7 @@ span:hover+p.tooltip_minimum {
 	overflow: hidden;
 	/*opacity: 0.98;*/
  }
-	
+
 .autosaves {
   	position: relative;
   	top: 11em;
@@ -246,4 +265,3 @@ span:hover+p.tooltip_minimum {
     uses a z-index of 5 for the Feedback dogs-ear in the bottom right.*/
     z-index: 10;
  }
- 

@@ -3,6 +3,11 @@ document.addEventListener('readystatechange', function(event) {
         if (event.target.readyState !== "complete") {
             return;
         }
+// TODO Please note this would lose check box states, be quite irritating
+// So we stay with manual refresh instead.
+//        window.setInterval(function() {
+//            location.reload(true);
+//        }, 3000);
         (function() {
             function getDownloadFileName() {
                 var abbrevCount;
@@ -132,7 +137,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-//                                    toast((new Date()).toJSON() + " saved " + disableLossKey + " value " + event.target.value);
+                                    //                                    toast((new Date()).toJSON() + " saved " + disableLossKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -146,7 +151,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-//                                    toast((new Date()).toJSON() + " saved " + minimumLengthKey + " value " + event.target.value);
+                                    //                                    toast((new Date()).toJSON() + " saved " + minimumLengthKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -162,7 +167,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-//                                    toast((new Date()).toJSON() + " saved " + timeoutKey + " value " + event.target.value);
+                                    //                                    toast((new Date()).toJSON() + " saved " + timeoutKey + " value " + event.target.value);
                                 }
                             });
                         }, false);
@@ -180,7 +185,7 @@ document.addEventListener('readystatechange', function(event) {
                                 if (chrome.runtime.lastError) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
-//                                    toast((new Date()).toJSON() + " saved " + displayInternalKey + " value " + item[displayInternalKey]);
+                                    //                                    toast((new Date()).toJSON() + " saved " + displayInternalKey + " value " + item[displayInternalKey]);
                                     //                            TODO Please note the we need to reload page only when the asynchronuous sync.set calls back without failure!
                                     location.reload(true);
                                 }
@@ -248,6 +253,34 @@ document.addEventListener('readystatechange', function(event) {
                         });
                         var selectedCount = document.querySelectorAll('.select_one:checked').length;
                         deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectedCount]);
+//                        chrome.storage.sync.get(null, function(items) {
+//                            try {
+//                                if (chrome.runtime.lastError) {
+//                                    console.log(chrome.runtime.lastError.message, items);
+//                                    toast(chrome.runtime.lastError.message);
+//                                } else {
+                                    var syncBytes = JSON.stringify(items).length;
+                                    var syncItemCount = Object.getOwnPropertyNames(items).length;
+                        var syncStatus = document.querySelectorAll('.sync_status');
+                        syncStatus.value = chrome.i18n.getMessage('delete_selected', [syncItemCount, syncBytes / chrome.storage.sync.QUOTA_BYTES * 100]);
+//                                    console.log(syncBytes.name, syncBytes);
+//                                    console.log(syncItemCount.name, syncItemCount);
+//                                    if (itemLengthJson > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
+//                                        toast("QUOTA_BYTES_PER_ITEM exceeded");
+//                                    }
+//                                    if (syncItemCount >= chrome.storage.sync.MAX_ITEMS) {
+//                                        toast("MAX_ITEMS exceeded");
+//                                    }
+//                                    if (syncBytes + chrome.storage.sync.QUOTA_BYTES_PER_ITEM > chrome.storage.sync.QUOTA_BYTES) {
+//                                        toast("QUOTA_BYTES exceeded (less than QUOTA_BYTES_PER_ITEM left)");
+//                                    }
+//                                }
+//                            } catch (exception) {
+//                                window.alert('exception.stack: ' + exception.stack);
+//                                toast('exception.stack: ' + exception.stack);
+//                                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+//                            }
+//                        });
                     }
                 } catch (exception) {
                     window.alert('exception.stack: ' + exception.stack);

@@ -61,6 +61,20 @@
             }
         }
     },
+    "sync_status": {
+        "message": "$Items$ synced, $Percentage$% full",
+        "description": "$Items$ synced, $Percentage$% full",
+        "placeholders": {
+            "items": {
+                "content": "$1",
+                "example": "$Items$ synced, $Percentage$% full"
+            },
+            "percentage": {
+                "content": "$2",
+                "example": "$Items$ synced, $Percentage$% full"
+            }
+        }
+    },
     "timeout_label": {
         "message": "Autosave Timeout",
         "description": "Autosave Timeout"
@@ -80,6 +94,20 @@
     "tooltip_minimum": {
         "message": "Text will only be automatically saved when it has at least the given number of characters.",
         "description": "Text will only be automatically saved when it has at least the given number of characters."
+    },
+    "tooltip_sync_status": {
+        "message": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to.",
+        "description": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to.",
+        "placeholders": {
+            "maxitems": {
+                "content": "$1",
+                "example": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to."
+            },
+            "quotabytes": {
+                "content": "$2",
+                "example": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to."
+            }
+        }
     },
     "tooltip_timeout": {
         "message": "Text will be saved automatically when no changes to it are made within a timeout period in seconds. Any change restarts the timeout operation.",
