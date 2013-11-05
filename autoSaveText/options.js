@@ -262,9 +262,9 @@ document.addEventListener('readystatechange', function(event) {
                         var syncBytes = JSON.stringify(items).length;
                         var syncItemCount = Object.getOwnPropertyNames(items).length;
                         var syncStatus = document.querySelector('.sync_status');
-                        syncStatus.innerText = chrome.i18n.getMessage('sync_status', [syncItemCount, (new Number(syncBytes / chrome.storage.sync.QUOTA_BYTES * 100)).toPrecision(3)]);
+                        syncStatus.innerHTML = chrome.i18n.getMessage('sync_status', [syncItemCount, (new Number(syncBytes / chrome.storage.sync.QUOTA_BYTES * 100)).toPrecision(3)]);
                         var tooltipSyncStatus = document.querySelector('.tooltip_sync_status');
-                        tooltipSyncStatus.innerText = chrome.i18n.getMessage('tooltip_sync_status', [chrome.storage.sync.MAX_ITEMS, chrome.storage.sync.QUOTA_BYTES]);
+                        tooltipSyncStatus.innerText = chrome.i18n.getMessage('tooltip_sync_status', [chrome.i18n.getMessage('extension_name'), chrome.storage.sync.MAX_ITEMS, chrome.storage.sync.QUOTA_BYTES]);
                         //                                    console.log(syncBytes.name, syncBytes);
                         //                                    console.log(syncItemCount.name, syncItemCount);
                         //                                    if (itemLengthJson > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {

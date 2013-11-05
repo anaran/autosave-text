@@ -3,6 +3,9 @@
 		<meta charset="utf-8">
 		<script src="options.js"></script>
 		<script src="toast.js"></script>
+        <!-- Applies all messages to i18n-content attributes.
+                Only messages with placeholders need to be updated when arguments are available.
+                See options.js for these. -->
 		<script src="applyChromeI18nMessages.js"></script>
 		<link rel="stylesheet" href="autosave.css">
 		<title>Autosave Text Options</title>
@@ -23,9 +26,11 @@
 	<section class="anchor">
 		<h1 class="autosave_options" i18n-content="autosave_options">Autosave Text Options</h1>
 		<div class="version" i18n-content="version">Version $Number$</div>
-<!--
-		<h1 class="autosave_logo_options">AT</h1>
--->
+		<div class="links">
+		<a href="https://chrome.google.com/webstore/detail/autosave-text/omgpghebcjlafeegihofjnhhmllplnie/details" class="webstore">
+		<img src="https://developers.google.com/chrome/web-store/images/branding/ChromeWebStore_Badge_v2_206x58.png" alt="Chrome Web Store"/>
+		</a>
+		</div>
 		<span>
 <input type="number" class="timeout" min="0.5" step="0.5" max="10">
 <label for="timeout" class="timeout_label" i18n-content="timeout_label">Autosave Timeout</label>
