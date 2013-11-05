@@ -4,7 +4,7 @@
         "description": "The title of the extension, displayed in the web store."
     },
     "extension_description": {
-        "message": "Save edited text fields to sync storage (available in syncing chrome installations), except for input type password.", 
+        "message": "Save edited text fields to sync storage (available in syncing chrome installations), except for input type password.",
         "description":"The description of the extension, displayed in the web store."
     },
     "autosave_options": {
@@ -62,7 +62,7 @@
         }
     },
     "sync_status": {
-        "message": "$Items$ synced, $Percentage$% full",
+        "message": "$Items$ <a href=\"https://www.google.com/settings/chrome/sync\">synced</a>, $Percentage$% full",
         "description": "$Items$ synced, $Percentage$% full",
         "placeholders": {
             "items": {
