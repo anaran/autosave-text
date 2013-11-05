@@ -4,7 +4,7 @@
         "description": "The title of the extension, displayed in the web store."
     },
     "extension_description": {
-        "message": "Sichert bearbeitete Text Felder im sync storage (in synchronisierten Chrome Installationen verfügbar), außer input type password.", 
+        "message": "Sichert bearbeitete Text Felder im sync storage (in synchronisierten Chrome Installationen verfügbar), außer input type password.",
         "description":"The description of the extension, displayed in the web store."
     },
     "autosave_options": {
@@ -92,7 +92,7 @@
         "description": "Imports all entries from a local file."
     },
     "tooltip_sync_status": {
-        "message": "Google Chrome kann bis zu $MaxItems$ Einträge mit insgesamt $QuotaBytes$ Zeichen zwischen browsern eines eingeloggten Benutzers synchronisieren",
+        "message": "Google Chrome kann bis zu $MaxItems$ Einträge mit insgesamt $QuotaBytes$ Zeichen für einen angemeldeten Benutzer synchronisieren",
         "description": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to.",
         "placeholders": {
             "maxitems": {

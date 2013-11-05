@@ -96,16 +96,20 @@
         "description": "Text will only be automatically saved when it has at least the given number of characters."
     },
     "tooltip_sync_status": {
-        "message": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to.",
-        "description": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to.",
+        "message": "$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in.",
+        "description": "$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in.",
         "placeholders": {
-            "maxitems": {
+            "extensionname": {
                 "content": "$1",
-                "example": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to."
+                "example": "$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in."
+            },
+            "maxitems": {
+                "content": "$2",
+                "example": "$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in."
             },
             "quotabytes": {
-                "content": "$2",
-                "example": "Google Chrome can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ between browers a user is logged in to."
+                "content": "$3",
+                "example": "$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in."
             }
         }
     },

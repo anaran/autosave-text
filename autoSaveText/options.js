@@ -3,11 +3,11 @@ document.addEventListener('readystatechange', function(event) {
         if (event.target.readyState !== "complete") {
             return;
         }
-// TODO Please note this would lose check box states, be quite irritating
-// So we stay with manual refresh instead.
-//        window.setInterval(function() {
-//            location.reload(true);
-//        }, 3000);
+        // TODO Please note this would lose check box states, be quite irritating
+        // So we stay with manual refresh instead.
+        //        window.setInterval(function() {
+        //            location.reload(true);
+        //        }, 3000);
         (function() {
             function getDownloadFileName() {
                 var abbrevCount;
@@ -253,34 +253,36 @@ document.addEventListener('readystatechange', function(event) {
                         });
                         var selectedCount = document.querySelectorAll('.select_one:checked').length;
                         deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectedCount]);
-//                        chrome.storage.sync.get(null, function(items) {
-//                            try {
-//                                if (chrome.runtime.lastError) {
-//                                    console.log(chrome.runtime.lastError.message, items);
-//                                    toast(chrome.runtime.lastError.message);
-//                                } else {
-                                    var syncBytes = JSON.stringify(items).length;
-                                    var syncItemCount = Object.getOwnPropertyNames(items).length;
-                        var syncStatus = document.querySelectorAll('.sync_status');
-                        syncStatus.value = chrome.i18n.getMessage('delete_selected', [syncItemCount, syncBytes / chrome.storage.sync.QUOTA_BYTES * 100]);
-//                                    console.log(syncBytes.name, syncBytes);
-//                                    console.log(syncItemCount.name, syncItemCount);
-//                                    if (itemLengthJson > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
-//                                        toast("QUOTA_BYTES_PER_ITEM exceeded");
-//                                    }
-//                                    if (syncItemCount >= chrome.storage.sync.MAX_ITEMS) {
-//                                        toast("MAX_ITEMS exceeded");
-//                                    }
-//                                    if (syncBytes + chrome.storage.sync.QUOTA_BYTES_PER_ITEM > chrome.storage.sync.QUOTA_BYTES) {
-//                                        toast("QUOTA_BYTES exceeded (less than QUOTA_BYTES_PER_ITEM left)");
-//                                    }
-//                                }
-//                            } catch (exception) {
-//                                window.alert('exception.stack: ' + exception.stack);
-//                                toast('exception.stack: ' + exception.stack);
-//                                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
-//                            }
-//                        });
+                        //                        chrome.storage.sync.get(null, function(items) {
+                        //                            try {
+                        //                                if (chrome.runtime.lastError) {
+                        //                                    console.log(chrome.runtime.lastError.message, items);
+                        //                                    toast(chrome.runtime.lastError.message);
+                        //                                } else {
+                        var syncBytes = JSON.stringify(items).length;
+                        var syncItemCount = Object.getOwnPropertyNames(items).length;
+                        var syncStatus = document.querySelector('.sync_status');
+                        syncStatus.innerText = chrome.i18n.getMessage('sync_status', [syncItemCount, (new Number(syncBytes / chrome.storage.sync.QUOTA_BYTES * 100)).toPrecision(3)]);
+                        var tooltipSyncStatus = document.querySelector('.tooltip_sync_status');
+                        tooltipSyncStatus.innerText = chrome.i18n.getMessage('tooltip_sync_status', [chrome.storage.sync.MAX_ITEMS, chrome.storage.sync.QUOTA_BYTES]);
+                        //                                    console.log(syncBytes.name, syncBytes);
+                        //                                    console.log(syncItemCount.name, syncItemCount);
+                        //                                    if (itemLengthJson > chrome.storage.sync.QUOTA_BYTES_PER_ITEM) {
+                        //                                        toast("QUOTA_BYTES_PER_ITEM exceeded");
+                        //                                    }
+                        //                                    if (syncItemCount >= chrome.storage.sync.MAX_ITEMS) {
+                        //                                        toast("MAX_ITEMS exceeded");
+                        //                                    }
+                        //                                    if (syncBytes + chrome.storage.sync.QUOTA_BYTES_PER_ITEM > chrome.storage.sync.QUOTA_BYTES) {
+                        //                                        toast("QUOTA_BYTES exceeded (less than QUOTA_BYTES_PER_ITEM left)");
+                        //                                    }
+                        //                                }
+                        //                            } catch (exception) {
+                        //                                window.alert('exception.stack: ' + exception.stack);
+                        //                                toast('exception.stack: ' + exception.stack);
+                        //                                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+                        //                            }
+                        //                        });
                     }
                 } catch (exception) {
                     window.alert('exception.stack: ' + exception.stack);
