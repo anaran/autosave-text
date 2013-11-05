@@ -46,7 +46,7 @@
                 //exception.stack: TypeError: Cannot call method 'inspect' of undefined
                 //at autosaveEventHandler (chrome-extension://ddbcobcapggbhjcihdedihlennemenmm/autosave.js:32:37)
                 // console._commandLineAPI.inspect(event.target);
-                // TODO Please note Don't autosave password type            
+                // TODO Please note Don't autosave password type
                 //                if (event.target.localName.toLowerCase() === 'input' && event.target.getAttribute('type') && event.target.getAttribute('type').toLowerCase() === 'password') {
                 //                    console.log("not recording this for your protection" + event.target);
                 //                    toast("not recording this password for your protection");
