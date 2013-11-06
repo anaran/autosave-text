@@ -61,17 +61,27 @@
             }
         }
     },
+    "sync_full": {
+        "message": ", $Percentage$% voll",
+        "description": ", $Percentage$% full",
+        "placeholders": {
+            "percentage": {
+                "content": "$1",
+                "example": ", $Percentage$% full"
+            }
+        }
+    },
+    "sync_settings": {
+        "message": "synchronisiert",
+        "description": "synced"
+    },
     "sync_status": {
-        "message": "$Items$ <a href=\"https://www.google.com/settings/chrome/sync\" target=\"autosave_text_sync\">synchronisiert</a>, $Percentage$% full",
-        "description": "$Items$ synced, $Percentage$% full",
+        "message": "$Items$",
+        "description": "$Items$",
         "placeholders": {
             "items": {
                 "content": "$1",
-                "example": "$Items$ synced, $Percentage$% full"
-            },
-            "percentage": {
-                "content": "$2",
-                "example": "$Items$ synced, $Percentage$% full"
+                "example": "$Items$"
             }
         }
     },

@@ -165,7 +165,7 @@ span:hover+p.tooltip_minimum {
     display: inline-block;
 }
 
-.sync_status+p.tooltip_sync_status {
+.sync_settings~p.tooltip_sync_status {
   	margin: 0.5em;
     position: fixed;
         display: none;
@@ -176,11 +176,11 @@ span:hover+p.tooltip_minimum {
 	opacity: 0.8;
 }
 
-.sync_status:active+p.tooltip_sync_status {
+.sync_settings:active~p.tooltip_sync_status {
     display: inline-block;
 }
 
-.sync_status:hover+p.tooltip_sync_status {
+.sync_settings:hover~p.tooltip_sync_status {
     display: inline-block;
 }
 

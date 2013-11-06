@@ -10,6 +10,10 @@
                 if (event.target.readyState !== 'complete') {
                     return;
                 }
+                if (!chrome.i18n) {
+                    console.warn('chrome.i18n is undefined.\n%s\nis %cnot%c viewed as part of a chrome extension.', document.URL, 'font-weight: bold', '');
+                    return;
+                }
                 (function() {
                     var nds = document.querySelectorAll('[i18n-content]');
                     for (i = 0, len = nds.length; i < len; i++) {

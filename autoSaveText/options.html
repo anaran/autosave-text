@@ -28,7 +28,7 @@
 		<div class="version" i18n-content="version">Version $Number$</div>
 		<div class="links">
 		<a href="https://chrome.google.com/webstore/detail/autosave-text/omgpghebcjlafeegihofjnhhmllplnie/details"
-		target="autosave_text_cws" class="webstore">
+		target="_blank" class="webstore">
 		<img src="https://developers.google.com/chrome/web-store/images/branding/ChromeWebStore_Badge_v2_206x58.png" alt="Chrome Web Store"/>
 		</a>
 		</div>
@@ -77,7 +77,8 @@
 		<p class="tooltip_import" i18n-content="tooltip_import">
 			Imports all entries from a local file.
 		</p>
-		<span class="sync_status" i18n-content="sync_status">$Items$ <a href="https://www.google.com/settings/chrome/sync">synced</a>, $Percentage$% full</span>
+		<span class="sync_status">$Items$ </span><a href="https://www.google.com/settings/chrome/sync"
+		target="_blank" class="sync_settings" i18n-content="sync_settings">synced</a><span class="sync_full">, $Percentage$% full</span>
 		<p class="tooltip_sync_status" i18n-content="tooltip_sync_status">
 			$ExtensionName$ can synchronize up to $MaxItems$ items with a total size of $QuotaBytes$ bytes when you are signed in.
 		</p>
