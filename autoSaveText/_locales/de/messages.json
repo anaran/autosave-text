@@ -62,7 +62,7 @@
         }
     },
     "sync_status": {
-        "message": "$Items$ <a href=\"https://www.google.com/settings/chrome/sync\">synchronisiert</a>, $Percentage$% voll",
+        "message": "$Items$ <a href=\"https://www.google.com/settings/chrome/sync\" target=\"autosave_text_sync\">synchronisiert</a>, $Percentage$% full",
         "description": "$Items$ synced, $Percentage$% full",
         "placeholders": {
             "items": {
