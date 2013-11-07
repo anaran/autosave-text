@@ -1,16 +1,18 @@
+// Comment console messages (except error and warn)
+// From:(\n\s+)(console\.log|debug)To:$1 // $2
 console.time("autosave_bg.js loading takes");
 console.log("autosave_bg.js loads into", location.href);
 
 (function() {
     try {
         var autosaveCommmandMap = {};
-    chrome.commands.getAll(function (commands) {
-        commands.forEach(function(value, index, object) {
-        autosaveCommmandMap[value.name] = value.shortcut;
+        chrome.commands.getAll(function(commands) {
+            commands.forEach(function(value, index, object) {
+                autosaveCommmandMap[value.name] = value.shortcut;
             });
         });
-        
-        
+
+
         // TODO Please note we first try a dummpy update of the menu be ID.
         // IF that fails, we probably have to create it.
         // Here is proof:
@@ -23,15 +25,15 @@ console.log("autosave_bg.js loads into", location.href);
         var reviewAllAutsosavesId = "reviewAllAutosaves";
         chrome.contextMenus.update(reviewAllAutsosavesId, {}, function() {
             if (chrome.extension.lastError) {
-                console.log("lastError:" + chrome.extension.lastError.message);
+                console.warn("lastError:" + chrome.extension.lastError.message);
                 chrome.contextMenus.create({
                     id: reviewAllAutsosavesId,
                     type: "normal",
-                    title: "Review all Autosaves                 " + autosaveCommmandMap["review-autosaves"] ,
+                    title: "Review all Autosaves                 " + autosaveCommmandMap["review-autosaves"],
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
-                        console.log("lastError:" + chrome.extension.lastError.message);
+                        console.warn("lastError:" + chrome.extension.lastError.message);
                     }
                 });
             }
@@ -39,15 +41,15 @@ console.log("autosave_bg.js loads into", location.href);
         var captureVisibleTabId = "captureVisibleTabId";
         chrome.contextMenus.update(captureVisibleTabId, {}, function() {
             if (chrome.extension.lastError) {
-                console.log("lastError:" + chrome.extension.lastError.message);
+                console.warn("lastError:" + chrome.extension.lastError.message);
                 chrome.contextMenus.create({
                     id: captureVisibleTabId,
                     type: "normal",
-                    title: "Capture Visible Tab                    " + autosaveCommmandMap["capture-tab"] ,
+                    title: "Capture Visible Tab                    " + autosaveCommmandMap["capture-tab"],
                     contexts: ["editable"]
                 }, function() {
                     if (chrome.extension.lastError) {
-                        console.log("lastError:" + chrome.extension.lastError.message);
+                        console.warn("lastError:" + chrome.extension.lastError.message);
                     }
                 });
             }
@@ -55,15 +57,15 @@ console.log("autosave_bg.js loads into", location.href);
         var manageExtensionId = "manageExtensionId";
         chrome.contextMenus.update(manageExtensionId, {}, function() {
             if (chrome.extension.lastError) {
-                console.log("lastError:" + chrome.extension.lastError.message);
+                console.warn("lastError:" + chrome.extension.lastError.message);
                 chrome.contextMenus.create({
                     id: manageExtensionId,
                     type: "normal",
-                    title: "Manage Autosave Text Extension" ,
+                    title: "Manage Autosave Text Extension",
                     contexts: ["all"]
                 }, function() {
                     if (chrome.extension.lastError) {
-                        console.log("lastError:" + chrome.extension.lastError.message);
+                        console.warn("lastError:" + chrome.extension.lastError.message);
                     }
                 });
             }
@@ -78,7 +80,7 @@ console.log("autosave_bg.js loads into", location.href);
             chrome.tabs.query({
                 url: optionsURL
             }, function(tabArray) {
-                console.log("chrome.tabs.query callback gets", tabArray);
+                // console.log("chrome.tabs.query callback gets", tabArray);
                 if (tabArray.length === 1) {
                     chrome.tabs.update(tabArray[0].id, {
                         active: true,
@@ -94,7 +96,7 @@ console.log("autosave_bg.js loads into", location.href);
                         //                                    pinned: true
                         openerTabId: tab.id
                     }, function(tabArray) {
-                        console.log("chrome.tabs.create callback gets", tabArray);
+                        // console.log("chrome.tabs.create callback gets", tabArray);
                     });
                 }
             });
@@ -103,7 +105,7 @@ console.log("autosave_bg.js loads into", location.href);
             chrome.tabs.captureVisibleTab(tab.windowId, {
                 format: "png"
             }, function(dataUrl) {
-                console.log(dataUrl);
+                // console.log(dataUrl);
                 window.open(dataUrl);
             });
         }
@@ -112,7 +114,7 @@ console.log("autosave_bg.js loads into", location.href);
             chrome.tabs.query({
                 url: manageURL
             }, function(tabArray) {
-                console.log("chrome.tabs.query callback gets", tabArray);
+                // console.log("chrome.tabs.query callback gets", tabArray);
                 if (tabArray.length === 1) {
                     chrome.tabs.update(tabArray[0].id, {
                         active: true,
@@ -124,38 +126,38 @@ console.log("autosave_bg.js loads into", location.href);
                         active: true,
                         openerTabId: tab.id
                     }, function(tabArray) {
-                        console.log("chrome.tabs.create callback gets", tabArray);
+                        // console.log("chrome.tabs.create callback gets", tabArray);
                     });
                 }
             });
         }
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
             chrome.storage.sync.getBytesInUse(null, function(bytesUsed) {
-                console.log('bytesUsed', bytesUsed);
+                // console.log('bytesUsed', bytesUsed);
             });
-        autosaveCommmandMap = {};
-    chrome.commands.getAll(function (commands) {
-        commands.forEach(function(value, index, object) {
-        autosaveCommmandMap[value.name] = value.shortcut;
+            autosaveCommmandMap = {};
+            chrome.commands.getAll(function(commands) {
+                commands.forEach(function(value, index, object) {
+                    autosaveCommmandMap[value.name] = value.shortcut;
+                });
             });
-        });
             switch (info.menuItemId) {
                 case reviewAllAutsosavesId:
                     {
                         chrome.storage.sync.get(null, function(items) {
                             if (chrome.runtime.lastError) {
-                                console.log(chrome.runtime.lastError.message, items);
+                                console.warn(chrome.runtime.lastError.message, items);
                                 toast(chrome.runtime.lastError.message);
                             } else {
-                                console.log(items);
+                                // console.log(items);
                                 // TODO this includes other autosave settings like timeout, possible future disable on shrink parameter.
                                 var count = Object.getOwnPropertyNames(items).filter(function(key) {
                                     return key.match(/^autosave,text,/);
                                 }).length;
                                 chrome.contextMenus.update(reviewAllAutsosavesId, {
-                                    title: "Review all " + count + " Autosaves              " + autosaveCommmandMap["review-autosaves"] 
+                                    title: "Review all " + count + " Autosaves              " + autosaveCommmandMap["review-autosaves"]
                                 });
-//                                toast("Review all " + count + " Autosaves");
+                                //                                toast("Review all " + count + " Autosaves");
                                 reviewAllAutsosaves(tab);
                             }
                         });
@@ -191,13 +193,13 @@ console.log("autosave_bg.js loads into", location.href);
         //            }
         //        });
         chrome.commands.onCommand.addListener(function(command) {
-            console.log('onCommand event received for message: ', command);
+            // console.log('onCommand event received for message: ', command);
             chrome.tabs.query({
                 active: true,
                 currentWindow: true,
                 highlighted: true
             }, function(tabArray) {
-                console.log("chrome.tabs.query callback gets", tabArray);
+                // console.log("chrome.tabs.query callback gets", tabArray);
                 if (tabArray.length === 1) {
                     switch (command) {
                         case "review-autosaves":
@@ -218,7 +220,7 @@ console.log("autosave_bg.js loads into", location.href);
         });
     } catch (exception) {
         window.alert('exception.stack: ' + exception.stack);
-        console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+        // console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
     }
 })();
 

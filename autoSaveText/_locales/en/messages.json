@@ -76,7 +76,7 @@
         "description": "synced"
     },
     "sync_status": {
-        "message": "$Items$",
+        "message": "$Items$ ",
         "description": "$Items$",
         "placeholders": {
             "items": {

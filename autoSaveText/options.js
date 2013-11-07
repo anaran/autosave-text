@@ -1,3 +1,5 @@
+// Comment console messages (except error and warn)
+// From:(\n\s+)(console\.log|debug)To:$1 // $2
 document.addEventListener('readystatechange', function(event) {
     try {
         if (event.target.readyState !== "complete") {
@@ -46,7 +48,7 @@ document.addEventListener('readystatechange', function(event) {
                 chrome.storage.sync.get(null, function(items) {
                     try {
                         if (chrome.runtime.lastError) {
-                            console.log(chrome.runtime.lastError.message);
+                            console.warn(chrome.runtime.lastError.message);
                         } else {
                             var exportLinkElement = document.querySelector('.export_link');
                             var exportElement = document.querySelector('.export');
@@ -60,7 +62,7 @@ document.addEventListener('readystatechange', function(event) {
                             }, false);
 
                             function errorHandler(domError) {
-                                console.log(domError);
+                                console.error(domError);
                                 toast(domError);
                             }
                             var readFileUpdateUI = function(file /*, element, nameElement*/ ) {
@@ -86,7 +88,7 @@ document.addEventListener('readystatechange', function(event) {
                             var importElement = document.querySelector('.import');
                             var importFileElement = document.querySelector('.import_file');
                             importFileElement.addEventListener('change', function(event) {
-                                console.log(event.target.files);
+                                // console.log(event.target.files);
                                 if (event.target.files.length === 1) {
                                     readFileUpdateUI(event.target.files[0] /*, mod, modFileName*/ );
                                 }
@@ -106,19 +108,19 @@ document.addEventListener('readystatechange', function(event) {
                             }, false);
                             deleteSelectedElement.addEventListener('click', function(event) {
                                 var selectOneCheckedNodeList = document.querySelectorAll('.select_one');
-                                console.log("options page is ready, selectOneCheckedNodeList", selectOneCheckedNodeList);
+                                // console.log("options page is ready, selectOneCheckedNodeList", selectOneCheckedNodeList);
                                 var selectOneCheckedKeyArray = [];
                                 for (i = 0; i < selectOneCheckedNodeList.length; i++) {
                                     if (selectOneCheckedNodeList[i].checked && selectOneCheckedNodeList[i].dataset.autoSave) {
                                         selectOneCheckedKeyArray.push(selectOneCheckedNodeList[i].dataset.autoSave);
                                     }
                                 }
-                                console.log("options page is ready, selectOneCheckedKeyArray", selectOneCheckedKeyArray);
+                                // console.log("options page is ready, selectOneCheckedKeyArray", selectOneCheckedKeyArray);
                                 chrome.storage.sync.remove(selectOneCheckedKeyArray, function() {
                                     if (chrome.runtime.lastError) {
-                                        console.log(chrome.runtime.lastError.message);
+                                        console.warn(chrome.runtime.lastError.message);
                                     } else {
-                                        console.log("autosave data for following keys has been removed", selectOneCheckedKeyArray);
+                                        // console.log("autosave data for following keys has been removed", selectOneCheckedKeyArray);
                                         location.reload(true);
                                     }
                                 });
@@ -207,7 +209,7 @@ document.addEventListener('readystatechange', function(event) {
                                 selectOne.className = 'select_one';
                                 selectOne.addEventListener('change', function(event) {
                                     selectOne.checked = event.target.checked;
-                                    console.log('selectOne.checked', selectOne.checked);
+                                    // console.log('selectOne.checked', selectOne.checked);
                                     var selectedCount = document.querySelectorAll('.select_one:checked').length;
                                     deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [selectedCount]);
                                 }, false);
@@ -234,7 +236,7 @@ document.addEventListener('readystatechange', function(event) {
                                     }
                                 }, false && "useCapture");
                                 autosaveText.addEventListener('keydown', function(event) {
-                                    console.log(event);
+                                    // console.log(event);
                                     // TODO Only allow Ctrl+A and Ctrl+C. Ctrl+X would not harm since we prevent the cut event already.
                                     if (["Up", "Down", "Left", "Right"].some(function(value) {
                                         return value === event.keyIdentifier;
@@ -264,7 +266,9 @@ document.addEventListener('readystatechange', function(event) {
                             var syncBytes = JSON.stringify(items).length;
                             var syncItemCount = Object.getOwnPropertyNames(items).length;
                             var syncStatus = document.querySelector('.sync_status');
-                            syncStatus.innerHTML = chrome.i18n.getMessage('sync_status', [syncItemCount, (new Number(syncBytes / chrome.storage.sync.QUOTA_BYTES * 100)).toPrecision(3)]);
+                            var syncFull = document.querySelector('.sync_full');
+                            syncStatus.innerText = chrome.i18n.getMessage('sync_status', [syncItemCount]);
+                            syncFull.innerText = chrome.i18n.getMessage('sync_full', [(new Number(syncBytes / chrome.storage.sync.QUOTA_BYTES * 100)).toPrecision(3)]);
                             var tooltipSyncStatus = document.querySelector('.tooltip_sync_status');
                             tooltipSyncStatus.innerText = chrome.i18n.getMessage('tooltip_sync_status', [chrome.i18n.getMessage('extension_name'), chrome.storage.sync.MAX_ITEMS, chrome.storage.sync.QUOTA_BYTES]);
                             //                                    console.log(syncBytes.name, syncBytes);
@@ -288,7 +292,7 @@ document.addEventListener('readystatechange', function(event) {
                         }
                     } catch (exception) {
                         window.alert('exception.stack: ' + exception.stack);
-                        console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+                        console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
                     }
                 });
             } else {
@@ -297,6 +301,6 @@ document.addEventListener('readystatechange', function(event) {
         })();
     } catch (exception) {
         window.alert('exception.stack: ' + exception.stack);
-        console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+        console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
     }
 }, false);

@@ -2,6 +2,8 @@
 // Broken keys on Kuckuck: <>|
 // Remove single line comments in Eclipse Orion:
 // From:\n//.+(\s+)To:$1
+// Comment console messages (except error and warn)
+// From:(\n\s+)(console\.log|debug)To:$1 // $2
 (function() {
     try {
         console.time("autosave.js loading takes");
@@ -17,7 +19,7 @@
         // TODO Please note this caters to the async chrome.storage interfaces!
         chrome.storage.sync.get(Object.getOwnPropertyNames(Settings), function(items) {
             if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message + " " + key);
+                console.warn(chrome.runtime.lastError.message + " " + key);
             } else {
                 var newSyncItem = {};
                 Object.getOwnPropertyNames(Settings).forEach(function(value) {
@@ -30,7 +32,7 @@
                 if (Object.getOwnPropertyNames(newSyncItem).length) {
                     chrome.storage.sync.set(newSyncItem, function() {
                         if (chrome.runtime.lastError) {
-                            console.log(chrome.runtime.lastError.message + " " + newSyncItem);
+                            console.warn(chrome.runtime.lastError.message + " " + newSyncItem);
                             toast(chrome.runtime.lastError.message + " " + newSyncItem);
                         } else {
                             //                            toast("review initial value of " + newSyncItem + " in options page");
@@ -98,7 +100,7 @@
                         chrome.storage.sync.get(thisAutosaveTimer.autosaveKey, function(items) {
                             try {
                                 if (chrome.runtime.lastError) {
-                                    console.log(chrome.runtime.lastError.message, items);
+                                    console.warn(chrome.runtime.lastError.message, items);
                                     toast(chrome.runtime.lastError.message);
                                 } else {
                                     //                                console.log(items);
@@ -114,7 +116,7 @@
                                         item[key] = [text, uri];
                                         chrome.storage.sync.set(item, function() {
                                             if (chrome.runtime.lastError) {
-                                                console.log(chrome.runtime.lastError.message, item);
+                                                console.warn(chrome.runtime.lastError.message, item);
                                                 toast(chrome.runtime.lastError.message);
                                             } else {
                                                 toast("autosaved " + text.length + " characters");
@@ -129,10 +131,10 @@
                             } catch (exception) {
                                 window.alert('exception.stack: ' + exception.stack);
                                 toast('exception.stack: ' + exception.stack);
-                                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+                                console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
                             }
                         });
-                        console.log("clearing auto-save timeout for", thisAutosaveTimer);
+                         // console.log("clearing auto-save timeout for", thisAutosaveTimer);
                         delete thisAutosaveTimer.timeoutID;
                     },
                     setup: function(autosaveTimeoutSeconds, autosaveKey, autosaveElement) {
@@ -143,12 +145,12 @@
                         self.timeoutID = window.setTimeout(function() {
                             self.autosave();
                         }, autosaveTimeoutSeconds * 1000);
-                        console.log("setup auto-save timeout for", this);
+                         // console.log("setup auto-save timeout for", this);
                     },
                     cancel: function() {
                         if (typeof this.timeoutID === "number") {
                             window.clearTimeout(this.timeoutID);
-                            console.log("cancel autosave for", this);
+                             // console.log("cancel autosave for", this);
                             delete this.timeoutID;
                         }
                     }
@@ -166,7 +168,7 @@
             } catch (exception) {
                 window.alert('exception.stack: ' + exception.stack);
                 toast('exception.stack: ' + exception.stack);
-                console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+                console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
             }
         }
         //        var readWriteNodeList = document.querySelectorAll('*:read-write');
@@ -192,9 +194,9 @@
         //        });
         //        console.log(filteredReadWriteArray);
         var filter = function(value, index, object) {
-            console.log(value);
+             // console.log(value);
             if (value.localName === 'input' && !value.type || value.type && value.type !== 'password' || value.isContentEditable) {
-                console.log(value);
+                 // console.log(value);
                 if (value.dataset.autoSave === undefined) {
                     value.addEventListener('keypress', autosaveEventHandler, false);
                 }
@@ -202,7 +204,7 @@
             }
         };
         window.addEventListener('keypress', function(event) {
-            console.log(event.target);
+             // console.log(event.target);
             if (filter(event.target)) {}
         }, false);
         console.timeEnd("autosave.js loading takes");
@@ -210,7 +212,7 @@
     } catch (exception) {
         window.alert('exception.stack: ' + exception.stack);
         toast('exception.stack: ' + exception.stack);
-        console.log((new Date()).toJSON(), "exception.stack:", exception.stack);
+        console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
     }
 })();
 //document.onreadystatechange = function(evt) {
