@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
         "name": "__MSG_extension_name__",
-        "version": "13",
+        "version": "14",
         "minimum_chrome_version": "29.0.1521.3",
         "default_locale": "en",
         "description": "__MSG_extension_description__",
@@ -22,17 +22,17 @@
             "toast.js"]
     },
         "commands": {
-        "review-autosaves": {
+        "review_autosaves": {
             "suggested_key": {
                 "default": "Alt+Shift+A"
             },
-                "description": "Send a 'review-autosaves' event to the extension"
+                "description": "__MSG_review_autosaves__"
         },
-            "capture-tab": {
+            "capture_tab": {
             "suggested_key": {
                 "default": "Alt+Shift+C"
             },
-                "description": "Send a 'capture-tab' event to the extension"
+                "description": "__MSG_capture_tab__"
         }
     },
         "content_scripts": [{

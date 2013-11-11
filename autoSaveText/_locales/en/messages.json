@@ -15,6 +15,14 @@
         "message": "autosaved text",
         "description": "autosaved text"
     },
+    "capture_tab": {
+        "message": "Capture Visible Tab",
+        "description": "Capture Visible Tab"
+    },
+    "confirm_delete": {
+        "message": "I have verified export completed successfully and would like to delete selected autosaves from Chrome now.\n\n(This cannot be undone when autosave data has not been exported.)",
+        "description": "I have verified export completed successfully and would like to delete selected autosaves from Chrome now.\n\n(This cannot be undone when autosave data has not been exported.)"
+    },
     "delete_selected": {
         "message": "Delete $COUNT$ Selected",
         "description": "Delete $COUNT$ Selected",
@@ -47,9 +55,23 @@
         "message": "Import",
         "description": "Import"
     },
+    "manage_extension": {
+        "message": "Manage Autosave Text Extension",
+        "description": "Manage Autosave Text Extension"
+    },
     "minimum_label": {
         "message": "Autosave Minimum Length",
         "description": "Autosave Minimum Length"
+    },
+    "review_autosaves": {
+        "message": "Review all$Count$ Autosaves",
+        "description": "Review all$Count$ Autosaves",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Review all$Count$ Autosaves"
+            }
+        }
     },
     "select_all_label": {
         "message": "Select all $COUNT$ autosaves",
@@ -76,7 +98,7 @@
         "description": "synced"
     },
     "sync_status": {
-        "message": "$Items$ ",
+        "message": "$Items$",
         "description": "$Items$",
         "placeholders": {
             "items": {

@@ -15,6 +15,14 @@
         "message": "text gesichert",
         "description": "autosaved text"
     },
+    "capture_tab": {
+        "message": "Bild von Tab anfertigen",
+        "description": "Capture Visible Tab"
+    },
+    "confirm_delete": {
+        "message": "Ich habe den erfolgreichen export geprüft und möchte die ausgewählten autosaves nun aus Chrome löschen.\n\n(Dies kann nicht rückgängig gemacht werden falls die autosaves nicht exportiert wurden.)",
+        "description": "I have verified export completed successfully and would like to delete selected autosaves from Chrome now.\\n\\n(This cannot be undone when autosave data has not been exported.)"
+    },
     "delete_selected": {
         "message": "Ausgewählte $COUNT$ löschen",
         "description": "Delete $COUNT$ Selected",
@@ -47,9 +55,23 @@
         "message": "Importieren",
         "description": "Import"
     },
+    "manage_extension": {
+        "message": "Autosave Text Erweiterung verwalten",
+        "description": "Manage Autosave Text Extension"
+    },
     "minimum_label": {
         "message": "Autosave Minimale Länge",
         "description": "Autosave Minimum Length"
+    },
+    "review_autosaves": {
+        "message": "Alle$Count$ Autosaves durchsehen",
+        "description": "Review all$Count$ Autosaves",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "Review all$Count$ Autosaves"
+            }
+        }
     },
     "select_all_label": {
         "message": "Alle $COUNT$ autosaves auswählen",

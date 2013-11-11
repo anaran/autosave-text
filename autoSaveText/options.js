@@ -13,13 +13,6 @@ document.addEventListener('readystatechange', function(event) {
         (function() {
             function getDownloadFileName() {
                 var abbrevCount;
-                try {
-                    //		var arrayLength = JSON.parse(localStorage.map).length;
-                    //		if (arrayLength % 2) {
-                    //			chrome.extension.getBackgroundPage().alert(chrome.i18n.getMessage("odd_map_array_length") + arrayLength);
-                    //		}
-                    //		abbrevCount = arrayLength / 2;
-                } catch (e) {}
                 var d = new Date();
                 var fileName = 'autosave-text-'; //$NON-NLS-0$
                 fileName += d.getFullYear();
@@ -78,6 +71,9 @@ document.addEventListener('readystatechange', function(event) {
                                             toast(chrome.runtime.lastError.message);
                                         } else {
                                             toast("synced " + count + " imported items to storage");
+                                            window.setTimeout(function() {
+                                                location.reload(true);
+                                            }, 1500);
                                         }
                                     });
                                     //                                console.log(result);
@@ -107,23 +103,35 @@ document.addEventListener('readystatechange', function(event) {
                                 deleteSelectedElement.value = chrome.i18n.getMessage('delete_selected', [(event.target.checked ? selectOneNodeList.length : 0)]);
                             }, false);
                             deleteSelectedElement.addEventListener('click', function(event) {
-                                var selectOneCheckedNodeList = document.querySelectorAll('.select_one');
-                                // console.log("options page is ready, selectOneCheckedNodeList", selectOneCheckedNodeList);
-                                var selectOneCheckedKeyArray = [];
-                                for (i = 0; i < selectOneCheckedNodeList.length; i++) {
-                                    if (selectOneCheckedNodeList[i].checked && selectOneCheckedNodeList[i].dataset.autoSave) {
-                                        selectOneCheckedKeyArray.push(selectOneCheckedNodeList[i].dataset.autoSave);
+                                try {
+                                    var selectOneCheckedNodeList = document.querySelectorAll('.select_one');
+                                    // console.log("options page is ready, selectOneCheckedNodeList", selectOneCheckedNodeList);
+                                    var selectOneCheckedKeyArray = [];
+                                    for (i = 0; i < selectOneCheckedNodeList.length; i++) {
+                                        if (selectOneCheckedNodeList[i].checked && selectOneCheckedNodeList[i].dataset.autoSave) {
+                                            selectOneCheckedKeyArray.push(selectOneCheckedNodeList[i].dataset.autoSave);
+                                        }
                                     }
+                                    if (selectOneCheckedKeyArray.length) {
+                                        exportElement.click();
+                                        if (window.confirm(chrome.i18n.getMessage('confirm_delete'))) {
+                                            // console.log("options page is ready, selectOneCheckedKeyArray", selectOneCheckedKeyArray);
+                                            chrome.storage.sync.remove(selectOneCheckedKeyArray, function() {
+                                                if (chrome.runtime.lastError) {
+                                                    console.warn(chrome.runtime.lastError.message);
+                                                } else {
+                                                    toast("removed " + selectOneCheckedKeyArray.length + " items from sync storage");
+                                                    window.setTimeout(function() {
+                                                        location.reload(true);
+                                                    }, 1500);
+                                                }
+                                            });
+                                        }
+                                    }
+                                } catch (exception) {
+                                    window.alert('exception.stack: ' + exception.stack);
+                                    console.error((new Date()).toJSON(), "exception.stack:", exception.stack);
                                 }
-                                // console.log("options page is ready, selectOneCheckedKeyArray", selectOneCheckedKeyArray);
-                                chrome.storage.sync.remove(selectOneCheckedKeyArray, function() {
-                                    if (chrome.runtime.lastError) {
-                                        console.warn(chrome.runtime.lastError.message);
-                                    } else {
-                                        // console.log("autosave data for following keys has been removed", selectOneCheckedKeyArray);
-                                        location.reload(true);
-                                    }
-                                });
                             }, false);
                             var propsAllArray = Object.getOwnPropertyNames(items).sort().reverse();
                             var propsAutosavesArray = propsAllArray.filter(function(key) {
