@@ -3,6 +3,6 @@ Autosave Text [![Autosave Text](https://developers.google.com/chrome/web-store/i
 
 **Autosave Text** is a Google Chrome extension to save edited text fields to sync storage (available in syncing chrome installations), except for input type password.
 
-See [CWS/Readme.md](CWS/Readme.md)
+See [CWS/README.md](CWS/README.md)
 
 See also [../LastScrollChrome/contributing.md](../../../LastScrollChrome/blob/master/contributing.md)
