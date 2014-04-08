@@ -5,4 +5,4 @@ Autosave Text [![Autosave Text](https://developers.google.com/chrome/web-store/i
 
 See [CWS/README.md](CWS/README.md)
 
-See also [../LastScrollChrome/contributing.md](../../../LastScrollChrome/blob/master/contributing.md)
+See also [../LastScrollChrome/contributing.md](../LastScrollChrome/contributing.md) or, when viewed on github,  [../../../LastScrollChrome/blob/master/contributing.md](../../../LastScrollChrome/blob/master/contributing.md)
