@@ -1,0 +1,1 @@
+.. include:: ../../../../LastScrollChrome/CONTRIBUTING.md
